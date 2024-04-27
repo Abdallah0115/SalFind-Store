@@ -19,27 +19,25 @@ This project revolves around the creation of a dynamic web application that will
 ### Back-end
 - Python
 - Django
-- sqlite3  
-# Data science techniques
+- sqlite3
 
-### Data analysis 
+### Data analysis
 - pandas
 - numby
-
-### Data visualisation
-
 - Plotly
-- mathplot
-- seaborn
- 
-### Data pre-processing
-- data cleaning
- 
-### Machine Learning techniques
+### Machien learning model
+- SKlearn
+# Data science techniques
+
+### - Data analysis 
+
+
+### - Data visualisation
+### - Data cleaning
+
+### - Machine Learning techniques
 - semple linear regression
 - cross validation
-### Data post-processing
-- model evaluation
 
 ## model evaluation
 - R squared equal to 0.98
