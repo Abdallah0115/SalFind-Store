@@ -21,11 +21,17 @@ This project revolves around the creation of a dynamic web application that will
 - Django
 - sqlite3  
 # Data science techniques
+
 ### Data analysis 
 - pandas
-- plotly
 - numby
 
+### Data visualisation
+
+- Plotly
+- mathplot
+- seaborn
+ 
 ### Data pre-processing
 - data cleaning
  
