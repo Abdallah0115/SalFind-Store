@@ -58,19 +58,19 @@ In adition to this, making a store that contains the dashboard and have machines
 - Standard Deviation of RMSE: 0.57
 
 ### Linear Regression model evaluation ( Cluster 2 , 8 , 7 )
-- centroids => {17766.48 $, 13304.08 $, 24435.53 $}  
+- centroids => (17766.48 $ , 13304.08 $ , 24435.53 $)  
 - Mean R squared equal to 0.98
 - Mean RMSE equal to 661.69 
 - Standard Deviation of RMSE: 31.1
 
 ### Linear Regression model evaluation ( Cluster 3 , 5 )
-- centroids => {5626.4 $, 8546.096 $}
+- centroids => (5626.4 $ , 8546.096 $ )
 - Mean R squared equal to 0.91
 - Mean RMSE equal to 475.5 
 - Standard Deviation of RMSE: 11.01
 
 ### Linear Regression model evaluation ( Cluster 6 , 10 )
-- centroids => {3253.89 $, 1465.08 $} 
+- centroids => (3253.89 $, 1465.08 $ ) 
 - Mean R squared equal to 0.976
 - Mean RMSE equal to 152.54 
 - Standard Deviation of RMSE: 2.8
