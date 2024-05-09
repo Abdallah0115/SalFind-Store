@@ -1,0 +1,320 @@
+{%extends 'baseMarket.html'%}
+
+{%load static%}
+
+{%block itemsS%}
+
+<hr/>
+
+<div class="container p-0">
+
+    <div id="proto" class="row">
+
+        <div class="col-4 ">
+
+            {%if user.image%}
+                <img class="rounded mx-auto" src="{{user.image.url}}" style="width:300 px; height:300px"/>
+            {%else%}
+                <img class="rounded mx-auto" style="width: 300px; height:300px;display:inline" src="{%static 'img/user.jpg'%}"/>
+            {%endif%}
+        </div>
+
+        <div class="col-6">
+
+            <div class="m-4">
+                <strong>User</strong>
+                <span>{{user.name_prefix}}{{user.full_name}}</span>
+            </div>
+
+            <div class="m-4" >
+                <strong>NAME</strong>
+                <span>{{user.name_prefix}}{{user.first_name}} {{user.last_name}}</span>
+            </div>
+
+            <div class="m-4">
+                <strong>SSN</strong>
+                <span>{{user.ssn}}</span>
+            </div>
+
+            <div class="m-4">
+                <strong>Email</strong>
+                <span>{{user.email}}</span>
+            </div>
+
+            <div class="m-4">
+                <strong>Address</strong>
+                <span>{{user.place_name}} {{user.county}} {{user.city}} {{user.region}} {{user.state}}</span>
+            </div>
+
+            <div class="m-4">
+                <strong>phone</strong>
+                <span>{{user.phone_no}}</span>
+            </div>
+
+        </div>
+
+        <div class="col-4" >
+            <a href="/SalFind/EditProfile/" class="btn btn-primary m-1" >Edit Inforamtion</a>
+            <a href="/SalFind/EditPass/" class="btn btn-primary m-1" >Change Password</a>
+        </div>
+
+    </div>
+
+</div>
+<hr>
+
+<h1 class="text-center mt-5">Recieved orders</h1>
+
+<table class="table" style="margin-top: 60px;">
+    <thead class="thead-dark">
+        <tr>
+
+            <th scope="col">Item</th>
+
+            <th scope="col">Date</th>
+
+            <th scope="col">Total</th>
+
+            <th scope="col">Discount</th>
+
+            <th scope="col">Quantity</th>
+
+            <th scope="col">Refund</th>
+
+        </tr>
+    </thead>
+    {%if rec%}
+        {%for order in rec%}
+
+            <tbody>
+                <tr>
+
+                    <th>{{order.item}}</th>
+
+                    <th>{{order.order_date}}</th>
+
+                    <th>{{order.total}}</th>
+
+                    <th>{{order.discount_amount}}</th>
+
+                    <th>{{order.qty_ordered}}</th>
+
+                    <th>
+                        <a href="/SalFind/refund/{{order.id}}">
+                            <i class="fa-solid fa-sack-xmark text-danger" style="font-size: large;"></i>
+                        </a>
+                    </th>
+                </tr>
+            </tbody>
+
+        {%endfor%}
+    {%endif%}
+
+</table>
+
+{%if rec%}
+
+<hr style="display: none;"/>
+
+{%else%}
+
+<h3 class="text-center">No orders Found !</h3>
+
+<hr/>
+
+{%endif%}
+
+<!--complete orders-->
+<h1 class="text-center mt-5" style="margin-top: 60px;">complete orders</h1>
+
+<table class="table" style="margin-top: 60px;">
+    <thead class="thead-dark" >
+        <tr>
+
+            <th scope="col">Item</th>
+
+            <th scope="col">Date</th>
+
+            <th scope="col">Total</th>
+
+            <th scope="col">Discount</th>
+
+            <th scope="col">Quantity</th>
+
+            <th scope="col">Cancel</th>
+
+        </tr>
+    </thead>
+    {%if com%}
+        {%for order in com%}
+
+            <tbody>
+                <tr>
+
+                    <th>{{order.item}}</th>
+
+                    <th>{{order.order_date}}</th>
+
+                    <th>{{order.total}}</th>
+
+                    <th>{{order.discount_amount}}</th>
+
+                    <th>{{order.qty_ordered}}</th>
+
+                    <th>
+                        <a href="/SalFind/cancel/{{order.id}}">
+                        
+                            <i class="fa-solid fa-xmark text-danger" style="font-size: large;"></i>
+                        
+                        </a>
+                    </th>
+                </tr>
+            </tbody>
+
+        {%endfor%}
+    {%endif%}
+
+</table>
+
+{%if com%}
+
+<hr style="display: none;"/>
+
+{%else%}
+
+<h3 class="text-center">No orders Found !</h3>
+
+<hr/>
+
+{%endif%}
+
+<!--cod orders-->
+<h1 class="text-center mt-5" style="margin-top: 60px;">Cod orders</h1>
+
+<table class="table" style="margin-top: 60px;">
+    <thead class="thead-dark" >
+        <tr>
+
+            <th scope="col">Item</th>
+
+            <th scope="col">Date</th>
+
+            <th scope="col">Total</th>
+
+            <th scope="col">Discount</th>
+
+            <th scope="col">Quantity</th>
+
+            <th scope="col">Cancel</th>
+
+        </tr>
+    </thead>
+    {%if cod%}
+        {%for order in cod%}
+
+            <tbody>
+                <tr>
+
+                    <th>{{order.item}}</th>
+
+                    <th>{{order.order_date}}</th>
+
+                    <th>{{order.total}}</th>
+
+                    <th>{{order.discount_amount}}</th>
+
+                    <th>{{order.qty_ordered}}</th>
+
+                    <th>
+                        <a href="/SalFind/cancel/{{order.id}}">
+                        
+                            <i class="fa-solid fa-xmark text-danger" style="font-size: large;"></i>
+                        
+                        </a>
+                    </th>
+                </tr>
+            </tbody>
+
+        {%endfor%}
+    {%endif%}
+
+</table>
+
+{%if cod%}
+
+<hr style="display: none;"/>
+
+{%else%}
+
+<h3 class="text-center">No orders Found !</h3>
+
+<hr/>
+
+{%endif%}
+
+<!--cod orders-->
+<h1 class="text-center mt-5" style="margin-top: 60px;">Refund orders</h1>
+
+<table class="table" style="margin-top: 60px;">
+    <thead class="thead-dark" >
+        <tr>
+
+            <th scope="col">Item</th>
+
+            <th scope="col">Date</th>
+
+            <th scope="col">Total</th>
+
+            <th scope="col">Discount</th>
+
+            <th scope="col">Quantity</th>
+
+        </tr>
+    </thead>
+    {%if ref%}
+        {%for order in ref%}
+
+            <tbody>
+                <tr>
+
+                    <th>{{order.item}}</th>
+
+                    <th>{{order.order_date}}</th>
+
+                    <th>{{order.total}}</th>
+
+                    <th>{{order.discount_amount}}</th>
+
+                    <th>{{order.qty_ordered}}</th>
+
+                </tr>
+            </tbody>
+
+        {%endfor%}
+    {%endif%}
+
+</table>
+
+{%if ref%}
+
+<hr style="display: none;"/>
+
+{%else%}
+
+<h3 class="text-center">No orders Found !</h3>
+
+<hr/>
+
+{%endif%}
+<hr style="margin-top:100px">
+
+<h3 class="text-center">Money spent over time</h3>
+
+{{chart|safe}}
+
+<footer class="p-3 text-light bg-dark">
+
+    Services contact with : SalFind@gmail.com 
+
+</footer>
+{%endblock%}

@@ -1,0 +1,42 @@
+{%extends 'Analysis.html'%}
+
+{%block ana%}
+
+{%if mrD%}
+
+<div class="d-flex flex-row mt-4">
+
+    <div class="card text-light bg-dark  " id="M1">
+        <h5 class="card-header text-warning">Non-Completed Orders </h5>
+        <div class="card-body">
+            <div class="card-img">{{gau | safe}} </div>
+        </div>
+    </div>
+
+    <div class="d-flex flex-column " style="margin-left: 2px;">
+        <div class="card text-light bg-dark m-2 " id="M3">
+            <h5 class="card-header text-warning">Cancel Orders</h5>
+            <div class="card-body">
+                <h5 class="card-title"> {{can}} <span style="color:greenyellow">Orders</span></h5>
+            </div>
+        </div>
+
+        <div class="card text-light bg-dark m-2" id="M3">
+            <h5 class="card-header text-warning">Refunded Orders</h5>
+            <div class="card-body">
+                <h5 class="card-title"> {{Ref}} <span style="color:greenyellow">Orders</span></h5>
+            </div>
+        </div>
+
+    </div>
+</div>
+<hr>
+{%endif%}
+
+<div class="p-1 card text-light bg-dark m-2">
+    <h5 class="card-header text-warning text-center">{{title}}</h5>
+    <div class="card-body">
+        <div class="card-img">{{graph | safe}}</div>
+    </div>
+</div>
+{%endblock%}

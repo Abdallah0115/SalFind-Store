@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Sent Successfully</title>
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="icon"type="image/jpeg" sizes="30x30" href="{%static 'img/icon.png'%}">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Success!</h5>
+                </div>
+                <div class="card-body">
+                    <p>Your email has been sent successfully.</p>
+                    <p>Thank you for contacting us.</p>
+                    <a href="/dash/manageUser/1" class="btn btn-primary">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+
+<script src ="{%static 'js/all.min.js'%}"></script>
+
+<script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+</body>
+</html>

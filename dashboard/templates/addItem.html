@@ -1,0 +1,88 @@
+{%extends 'base.html'%}
+
+{%block content %}
+
+<div class="d-flex justify-content-around w-100">
+
+    <div class="container mt-4" style="border: .5px solid gray ; border_radius:2px" >
+
+        <h1 class="text-center m-5"> 
+            {%if form.sku %}
+                Add Product
+            {%else%}
+                Edit Product
+            {%endif%}
+        </h1>
+        <hr>
+        <form method="post" action="" class="form-groub" enctype="multipart/form-data">
+
+            {% csrf_token %}
+    
+            <div class="form-row ">
+                {%if form.sku%}
+                <div class="col-6 d-inline">
+                    <label class="m-1">Item Name </label>
+                    {{form.sku}}
+                </div>
+                {%endif%}
+    
+                <div class="col-6 d-inline">
+                    <label class="m-1">Price</label>
+                    {{form.price}}
+                </div>
+    
+                <div class="col-6 d-inline">
+                    <label class="m-1">category</label>
+                    {{form.Category}}
+                </div>
+    
+            </div>
+    
+            <div class="row mt-4">
+                <label class="col-2 m-1">Description</label>
+                {{form.description}}
+            </div>
+    
+            <p class="mt-4">
+    
+                <div class="col-6 d-inline">
+
+                    <span class="m-2">
+                        <label>Discount Availablity</label>
+                        {{form.discAv}}
+                    </span>
+
+                    <span class="m-2">
+                        <label>Active</label>
+                        {{form.is_Active}}
+                    </span>
+
+                </div>
+    
+                
+                <div class="m-4">
+    
+                    {{form.image}}
+                </div>
+    
+                
+            </p>
+    
+            <p class="text-center">
+                <button class="btn btn-primary " type="submit">
+                {%if form.sku %}
+                    Add 
+                {%else%}
+                    Edit
+                {%endif%}
+                </button>
+    
+            </p>
+    
+            
+        </form>
+    </div>
+    
+</div>
+
+{%endblock%}

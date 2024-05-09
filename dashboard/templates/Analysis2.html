@@ -1,0 +1,118 @@
+{%extends 'baseGen.html'%}
+
+{%block content%}
+
+<div class=" row m-0" >
+
+    <div class="col-3 p-0 bg-dark" style="border-right: 2px solid black; min-height: 880px">
+
+        <div class=" bg-dark text-center" style="height: 810px;">
+
+            <h4 class="text-center text-warning p-2" style="border-bottom: .25px solid white;" id="A1">Sales Analysis <span > <i class="fa-solid fa-angle-down"> </span></i></h4>
+
+            <ul id="B1" class="p-0 paner m-0" style="list-style: none; display :hidden">
+
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/1">Total Mony</a>
+                </li>
+    
+                <li>
+                    <a href="/generalDash/Analysis/{{obj}}/2" class="nav-link">Total Sales per Month</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/3">Total Sales by Category</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/4">Total Sales by Gender</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/5">Total Sales by age intervals</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/6"> Total Sales by Status</a>
+                </li>
+
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/7">Total Sales by payment method</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/8">Top 10 states by Total</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/9">Lowr 10 states by Total</a>
+                </li>
+    
+            </ul>
+    
+
+            <h4 style="border-bottom: .25px solid white;" class="text-center text-warning p-2" id="A2">Orders Analysis <span><i class="fa-solid fa-angle-down"></i></span></h4>
+    
+            <ul id="B2" class="p-0 paner m-0" style="list-style: none;">
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/10">Orders by status</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/11"> Orders by gender</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/12"> Orders by category</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/13">Orders by state</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/14">Top 10 counties orders</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/15">Lower 10 counties orders</a>
+                </li>
+    
+            </ul>
+    
+
+            <h4 style="border-bottom: .25px solid white;" id="A3" class="text-center text-warning p-2">Discount Analysis <span><i class="fa-solid fa-angle-down"></i></span></h4>
+    
+            <ul id="B3" class="p-0 paner m-0" style="list-style: none; ">
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/16">Discount by payment method</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/17">Average discount by payment method</a>
+                </li>
+
+                <li>
+                    <a class="nav-link" href="/generalDash/Analysis/{{obj}}/18">Discount VS Month</a>
+                </li>
+
+                
+            </ul>
+    
+        </div>
+    </div>
+
+    <div class="col-9 " style="background-color: rgb(214, 212, 212);">
+
+        {%block ana%}{%endblock%}
+    </div>
+
+<footer class="p-3 text-light bg-dark" style="border-top: 5px solid gold;">
+
+    Services contact with : SalFind@gmail.com 
+
+</footer>
+{%endblock%}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oops! We Lost Our Way</title>
+  <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+  <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+  <link rel="icon"type="image/jpeg" sizes="36x90"  href="{%static 'img/icon.png'%}">
+  <style>
+    .error-page {
+      min-height: 100vh; /* Set minimum height for full viewport coverage */
+      display: flex; /* Center content vertically and horizontally */
+      justify-content: center;
+      align-items: center;
+      background-color: #f5f5f5; /* Light gray background */
+    }
+
+    .error-text {
+      text-align: center;
+    }
+
+    .error-code {
+      font-size: 120px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #ffc107; /* Orange error code */
+    }
+
+    .error-message {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .btn-back-home {
+      background-color: #3498db; /* Blue button */
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btn-back-home:hover {
+      background-color: #2980b9; /* Darker blue on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="error-page">
+    <div class="error-text">
+      <h1 class="error-code">404</h1>
+      <p class="error-message">Whoops! Looks like the page you're looking for is lost in the internet void.</p>
+      <p>Don't worry, we all get lost sometimes. Here's what you can do:</p>
+      <ul>
+        <li>Double-check the URL you entered.</li>
+        <li>Try using the search bar to find what you're looking for.</li>
+        <li>Head back to the <a href="/">home page</a> and start fresh.</li>
+      </ul>
+      <button class="btn-back-home">Go Back Home</button>
+    </div>
+  </div>
+  
+  <script src ="{%static 'js/bootstrap.min.js'%}"></script>
+  <script src ="{%static 'js/all.min.js'%}"></script>
+  <script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+</body>
+</html>

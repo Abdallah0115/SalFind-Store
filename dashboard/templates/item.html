@@ -1,0 +1,82 @@
+{%extends 'baseItem.html'%}
+
+{%load static%}
+
+
+{%block form%}
+<form method="post" action="" class="mt-1 row text-center">
+    {%csrf_token%}
+
+    <div class="col-8 text-start">
+
+        <span>quantity : </span>
+
+        <input name="quantity" id="qt"value="0" type="text" style="border:0px; " class="w-25" readonly>
+
+        <button id="plus" type="button" class="btn btn-primary m-2">+</button>
+
+        <button id="minus" type="button" class="btn btn-primary m-2">-</button>
+
+        <div class="mt-1">
+
+            <label class="d-iniline">pay method :</label>
+
+            <select name="payM" class="form-control w-75 d-inline" >
+
+                <option value="cod">cod</option>
+
+                <option value="Easypay">Easypay</option>
+
+                <option value="easypay_voucher">easypay_voucher</option>
+
+                <option value="Payaxis">Payaxis</option>
+
+                <option value="bankalfalah">bankalfalah</option>
+
+                <option value="Easypay_MA">Easypay_MA</option>
+
+                <option value="jazzvoucher">jazzvoucher</option>
+
+                <option value="jazzwallet">jazzwallet</option>
+
+                <option value="customercredit">customercredit</option>
+
+                <option value="apg">apg</option>
+
+                <option value="mcblite">mcblite</option>
+
+                <option value="cashatdoorstep">cashatdoorstep</option>
+
+                <option value="financesettlement">financesettlement</option>
+
+            </select>
+
+        </div>
+
+        <div class="mt-1">
+            <label>Coupone :</label>
+            <input class="form-control w-75 d-inline" name="cop" type="text" maxlength="10" minlength="10" placeholder="Coupone"/>
+        </div>
+
+        <input type="number" name="rate" style="display: none;" id="temp" />
+
+    </div>
+
+    <div class="col-4 text-start">
+        
+        <div class="text-md mt-3 ">
+            <span  style="font-size: medium;  font-weight:600">total : </span>
+
+            <span id="total">0</span>
+        </div>
+
+    </div>
+
+    <hr class="mt-3">
+
+    <div class="m-2">
+        <button type="submit" class="btn btn-outline-success w-50 text-center" disabled id = "sub"> Show Offer ! </button>
+    </div>
+
+</form>
+{%endblock%}

@@ -1,0 +1,96 @@
+{%extends 'base.html'%}
+
+{%block content %}
+
+<nav class="navbar bg-body-tertiary ">
+    <div class="container-fluid">
+        <ul lass="navbar-nav mr-auto " style="display: flex; list-style:none;margin-bottom:0px; padding :2px">
+            <li class="nav-item">
+                <h4 class="m-1">Coupon Managmen</h1>
+            </li>
+
+            <li class="nav-item hovo">
+                <a class="nav-link m-1" style="font-size:larger ;" href="/dash/coupon/generate">Generate</a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>
+
+<table class="table">
+
+    <thead class="thead-dark">
+        <tr >
+
+            <th class="col-2">Code</th>
+
+            <th class="col-2">Time Used</th>
+
+            <th class="col-2">Value</th>
+
+            <th class="col-2">Valid From</th>
+
+            <th class="col-2">Valid To</th>
+
+            <th class="col-1">Is Active</th>
+
+            <th class="col-1">Edit</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        {%for item in items%}
+
+        <tr>
+            <th class="col">
+                {{item.code}}
+            </th>
+
+            <th class="col">
+                {{item.user_count}}
+            </th>
+
+            <th class="col">
+
+                {{item.discount_value}}
+
+            </th>
+
+            <th class="col">
+
+                {{item.valid_from}}
+
+            </th>
+
+            <th class="col">
+
+                {{item.valid_to}}
+
+            </th>
+
+            <th class="col">
+                {%if item.is_active %}
+                    <i class="fa-solid fa-circle-check text-success"></i>
+                {%else%}
+                <i class="fa-solid fa-circle-xmark text-danger"></i>
+                {%endif%}
+            </th>
+
+            <th class="col">
+                <a href="/dash/coupon/Edit/{{item.code}}">
+                    <i class="fa-regular fa-pen-to-square text-primary"></i>
+                </a>
+            </th>
+
+
+        </tr>
+
+        {%endfor%}
+
+    </tbody>
+</table>
+
+
+{%endblock%}

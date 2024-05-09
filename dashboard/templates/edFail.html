@@ -1,0 +1,28 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Failed</title>
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="icon"type="image/jpeg" sizes="30x30" href="{%static 'img/icon.png'%}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Oh no!</strong> There was an error while editing the item. Please try again later.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <a href="dash/manageItem" class="btn btn-primary"> Back to Menu</a>
+    </div>
+
+</body>
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+
+<script src ="{%static 'js/all.min.js'%}"></script>
+
+<script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+</html>

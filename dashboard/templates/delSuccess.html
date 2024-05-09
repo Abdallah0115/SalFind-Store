@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success!</title>
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="icon"type="image/jpeg" sizes="30x30" href="{%static 'img/icon.png'%}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-success" role="alert">
+            <h1 class="alert-heading">Success!</h1>
+            <p>The item has been edited successfully.</p>
+            <hr>
+            <p class="mb-0">You can now:</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item "><a href="/dash/manageItem">Go to the main menu</a></li>
+        </ul>
+        </div>
+    </div>
+</body>
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+
+<script src ="{%static 'js/all.min.js'%}"></script>
+
+<script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Failed</title>
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="icon"type="image/jpeg" sizes="36x90"  href="{%static 'img/icon.png'%}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card text-center">
+                    <div class="card-header bg-danger text-white">
+                        Transaction Failed!
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Uh oh, something went wrong.</h5>
+                        <p class="card-text">We apologize that your transaction could not be processed. Please review the information below and try again.</p>
+                        <ul>
+                            <li>Ensure you have sufficient funds in your account.</li>
+                            <li>Verify your billing information is accurate.</li>
+                            <li>If the issue persists, please contact our support team for assistance.</li>
+                        </ul>
+                        <a href="/SalFind/Market/0" class="btn btn-primary">Back to Market</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+<script src ="{%static 'js/all.min.js'%}"></script>
+<script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+</html>

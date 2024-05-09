@@ -1,0 +1,68 @@
+{%extends 'baseMarket.html'%}
+
+{%load static%}
+    {%block itemsS%}
+
+    <div class="card-deck row d-flex justify-content-around ">
+
+    {%if items%}
+
+    {%for item in items%}
+
+        <div class="card col-2 m-2">
+
+            <img src="{%static 'img/offer.png'%}" class="offer" temp="{{item.item__discAv}}{{item.discAv}}" style="position: absolute; width: 90px;height:70px;bottom :15px;right:-10px">
+
+            {% if item.image or item.item__image %}
+                
+                {%if item.image%}
+                <img src="{{ item.image.url }} " alt="{{ item.name }}">
+                {%else%}
+                <img src="/media/{{ item.item__image }} " alt="{{ item.name }}">
+                {%endif%}
+            {% else %}
+                <img src="{% static 'img/randomItem.jpg' %}" alt="Default Item Image">
+            {% endif %}
+
+            <div class="card-body">
+
+                <h5 class="card-title">{{item.item__sku}} {{item.sku}}</h5>
+
+                <p class="card-text">price : {{item.item__price}} {{item.price}}</p>
+
+                <p class="card-text">category : {{item.item__Category}} {{item.Category}}</p>
+
+            </div>
+
+            <div class="card-footer text-center">
+
+                <a href="/SalFind/Market/Item/{{item.item__sku}}{{item.sku}}" class="btn btn-outline-success">show</a>
+
+            </div>
+
+        </div>
+
+    {%endfor%}
+
+    {%else%}
+
+    <hr>
+
+    <h1 class="text-center">No items found !</h1>
+
+    {%endif%}
+
+</div>
+
+<hr/>
+
+<div class="text-center m-2">
+
+    <a id="Ne" class="btn btn-outline-success">Next</a>
+
+    <a id="Pr" class="btn btn-outline-success">Prev</a>
+
+</div>
+
+    {%endblock%}
+

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="icon"type="image/jpeg" sizes="30x30" href="{%static 'img/icon.png'%}">
+    <title>SalFind || Welcome</title>
+
+    <style>
+        .paner{
+            background-image: url({%static 'img/paner.jpg'%});
+
+            background-size:cover;
+
+            background-repeat:no-repeat;
+
+            height:630px;
+
+        }
+    </style>
+</head>
+<body class="bg-light" >
+
+    <nav class="navbar bg-dark navbar-expand-lg " style="border-bottom: 5px solid gold;">
+        <div class="container-fluid ">
+            
+            <ul class="navbar-nav mr-auto d-flex flex-row ">
+
+                <li>
+                    <span class="navbar-brand mb-0 h1 text-warning"> 
+    
+                        <img src="{% static 'img/icon.png' %}" />
+    
+                        <span class="h3">SalFind</span>
+    
+                    </span>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="\dash"  class="nav-link text-light" style="float: left;"> Manegment |</a>
+                </li>
+
+                
+
+                <li class="nav-item ">
+                    <a class="nav-link text-light" href="/admin"> Admin |</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link text-light" href="/generalDash/emailValid">Dashboard sign up | </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link text-light" href="/generalDash/login">Dashboard Log in </a>
+                </li>
+
+            </ul>
+
+            <i class="fa-solid fa-cat text-light h1 m-2"></i>
+
+        </div>
+    </nav>
+
+    <!--carousel-->
+
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="{%static 'img/paner.jpg'%}" height="700px" alt="First slide">
+
+                <div class="carousel-caption d-none d-md-block">
+                    <h4>Welcome To Our Store !</h4>
+                    <p>Every you need in best price found in SalFind .</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{%static 'img/c3.AVIF'%}" height="700px" alt="Second slide">
+                
+                <div class="carousel-caption d-none d-md-block">
+                    <h4>Good sales for you up to 25 % </h4>
+                    <p>we have many offers in SalFind,Online shopping is the future,Let's start wonder !</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{%static 'img/c4.avif'%}" height="700px" alt="Third slide">
+
+                <div class="carousel-caption d-none d-md-block">
+                    <h4>Dashbaord for your work !</h4>
+                    <p>we offers a free dashbaord for you if you need analysis for your store !</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!--animated bar-->
+
+    <div class="bg-dark text-light" style="border-bottom: 5px solid gold ;" >
+
+        <marquee behavior="scroll" direction="right">
+
+            <span id="sal" class="navbar-brand mb-0 h1 text-warning" style="position: relative;"> 
+    
+                <img src="{% static 'img/icon.png' %}" />
+
+                <span class="h3">SalFind</span>
+
+            </span>
+
+        </marquee>
+
+    </div>
+
+    <!-- customer section -->
+
+    <div class="container p-5 mt-5" style="margin-bottom: 100px;">
+        <div class="">
+            <div class="row">
+
+                <div class="col-7 ">
+
+                    <h2>Market Category</h2>
+
+                    <hr>
+
+                    <ul>
+                        {%for item in items%}
+                        <li class="h5">{{item.name}}</li>
+                        {%endfor%}
+                    </ul>
+
+                    
+                    <div style="margin-top:20px ">
+                        <hr>
+                        <a href="/SalFind/emailValid" type="button" class="btn btn-primary " style="margin-right: 25px;" >Sign Up</a>
+
+                        <a href="/SalFind/login" type="button" class="btn btn-primary" style="margin-left: 25px;" >Log In !</a>
+                    </div>
+
+                </div>
+
+                <img  class="col-5 p-0" src="{%static 'img/welcome.avif'%}"/>
+            </div>
+
+        </div>
+    </div>
+
+    <div >
+        <img class="w-100" height="400px" src="{%static 'img/pan.jpg'%}"/>
+    </div>
+
+    <div class="container p-5 mt-5" style="margin-bottom: 100px;">
+        <div class="">
+            <div class="row">
+
+                <img  class="col-5 p-0" src="{%static 'img/welcome2.avif'%}"/>
+
+                <div class="col-7 ">
+
+                    <h2>About us</h2>
+
+                    <hr>
+
+                    <p class="h5 mt-5">This project revolves around the creation of a 
+                        dynamic web application that will serve as a centralized platform
+                        for analyzing and visualizing sales data.
+                    </p>
+
+                    <br>
+
+                    <p class="h5">
+                        Leveraging a comprehensive
+                        dataset capturing sales transactions, customer demographics, and product
+                        information, the web application will facilitate real-time monitoring and
+                        exploration of key performance indicators (KPIs) related to market sales.
+                    </p>
+
+                    <br>
+
+                    <p class="h5">
+                        In adition to this, making a store that contains the dashboard and have
+                        machines that decides who will take offer and how much will be this offer,
+                        and anlysis of this market.
+                    </p>
+
+                    <div style="margin-top:80px ">
+                        <hr>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="p-3 text-light bg-dark" style="border-top: 5px solid gold;">
+
+        Services contact with : SalFind@gmail.com 
+    
+    </footer>
+
+</body>
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+
+<script src ="{%static 'js/all.min.js'%}"></script>
+
+<script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+
+</html>

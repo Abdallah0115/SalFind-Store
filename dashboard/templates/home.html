@@ -1,0 +1,49 @@
+{%extends 'Analysis.html'%}
+
+{%block ana%}
+<h3> Hello ,Mr {{user}} </h3>
+
+        <div class="d-flex flex-row  text-center m-0">
+            <div class="card text-light bg-dark m-2" id="M1">
+                <h5 class="card-header text-warning">Total money this year</h5>
+                <div class="card-body">
+                    <div class="card-img">{{money | safe}} </div>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column " style="margin-left: 2px;">
+                <div class="card text-light bg-dark m-2" id="M2">
+                    <h5 class="card-header text-warning">Total pieces sold</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">{{peices}} <span style="color:greenyellow">Peices</span> </h5>
+                    </div>
+                </div>
+
+                <div class="card text-light bg-dark m-2" id="M3">
+                    <h5 class="card-header text-warning">Total discounts</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">{{disc}} <span style="color:greenyellow">U.S.D</span></h5>
+                    </div>
+                </div>
+
+                <div class="card text-light bg-dark m-2" id="M4">
+                    <h5 class="card-header text-warning">Total Customers</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">{{cust}} <span style="color:greenyellow">customer</span></h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="text-dark"/>
+
+        <div class="p-1 card text-light bg-dark m-2">
+            <h5 class="card-header text-warning text-center">Income per month</h5>
+            <div class="card-body">
+                <div class="card-img">{{graph | safe}}</div>
+            </div>
+        </div>
+
+    </div>
+{%endblock%}

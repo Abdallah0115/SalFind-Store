@@ -1,0 +1,97 @@
+{%extends 'base.html'%}
+
+{%block content %}
+
+<nav class="navbar bg-body-tertiary ">
+    <div class="container-fluid">
+        <ul lass="navbar-nav mr-auto " style="display: flex; list-style:none;margin-bottom:0px; padding :2px">
+            <li class="nav-item">
+                <h4 class="m-1">Item Managmen</h1>
+            </li>
+
+            <li class="nav-item hovo">
+                <a class="nav-link m-1" style="font-size:larger ;" href="/dash/addItem">Add Item</a>
+            </li>
+        </ul>
+        <form class="d-flex" role="search" method="post" action="">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<hr>
+
+{%if items%}
+
+<table class="table">
+
+    <thead class="thead-dark">
+        <tr >
+
+            <th class="col-3">Name</th>
+
+            <th class="col-3">Category</th>
+
+            <th class="col-1">Price</th>
+
+            <th class="col-1">Rate</th>
+
+            <th class="col-1">Active</th>
+
+            <th class="col-1">Edit</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        {%for item in items%}
+
+        <tr>
+            <th class="col">
+                {{item.item__sku}}{{item.sku}}
+            </th>
+
+            <th class="col">
+                {{item.item__Category}}{{item.Category}}
+            </th>
+
+            <th class="col">
+                {{item.item__price}}{{item.price}}
+            </th>
+
+            <th class="col">
+                {%if item.avg_rate or item.itemrate__rate%}
+                    {{item.avg_rate}}{{item.itemrate__rate}}
+                {%else%}
+                    0
+                {%endif%}
+            </th>
+
+            <th class="col">
+                {%if item.is_Active or item.item__is_Active%}
+                    <i class="fa-solid fa-circle-check text-success"></i>
+                {%else%}
+                <i class="fa-solid fa-circle-xmark text-danger"></i>
+                {%endif%}
+            </th>
+
+            <th class="col">
+                <a href="/dash/Edit/{{item.item__sku}}{{item.sku}}">
+                    <i class="fa-regular fa-pen-to-square text-primary"></i>
+                </a>
+            </th>
+
+        </tr>
+
+        {%endfor%}
+
+    </tbody>
+</table>
+{%else%}
+<h1 class="text-danger text-center">Not Found !</h1>
+{%endif%}
+
+
+{%endblock%}

@@ -1,0 +1,96 @@
+{%extends 'base.html'%}
+
+{%block content %}
+
+<div class="d-flex justify-content-around w-100 mt-5">
+
+    <div class="container" style="border: .5px solid gray ; border_radius:2px" >
+
+        <h1 class="text-center m-5">
+
+            {%if ed%}
+
+            Edit Coubone
+
+            {%else %}
+
+            Add Coubone
+
+            {%endif%}
+
+        </h1>
+        <hr>
+        <form method="post" action="" class="form-groub" >
+
+            {% csrf_token %}
+    
+            <div class="form-row">
+                <div class="col-3 d-inline" id="safer" code="{{code}}">
+                    <label class="m-1">code </label>
+                    {{form.code}}
+                </div>
+    
+                <div class="col-3 d-inline">
+                    <label class="m-1">Discount</label>
+                    {{form.discount_value}}
+                </div>
+    
+                <div class="col-3 d-inline">
+                    <label class="m-1">Valid to</label>
+                    {{form.valid_to}}
+                </div>
+    
+            </div>
+    
+            <p class="mt-4">
+    
+                <div class="col-6 d-inline">
+
+                    <span class="m-2">
+                        <label>Active</label>
+                        {{form.is_active}}
+                    </span>
+
+                </div>
+
+            </p>
+
+            <p class="text-center">
+                <button class="btn btn-primary " type="submit">
+
+                    {%if send%}
+
+                        Send
+
+                    {%else%}
+
+                        {%if ed %}
+
+                            Edit
+
+                        {%else%}
+
+                            Add
+
+                        {%endif%}
+
+                    {%endif%}
+                </button>
+    
+            </p>
+    
+            
+        </form>
+    </div>
+    
+</div>
+
+{%if messege %}
+
+<div class="alert alert-danger" role="alert">
+    {{messege}}
+</div>
+
+{%endif%}
+
+{%endblock%}

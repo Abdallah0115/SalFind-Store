@@ -1,0 +1,95 @@
+{%extends 'base.html'%}
+
+{%block content %}
+
+<nav class="navbar bg-body-tertiary ">
+    <div class="container-fluid">
+        <ul lass="navbar-nav mr-auto " style="display: flex; list-style:none;margin-bottom:0px; padding :2px">
+            <li class="nav-item">
+                <h4 class="m-1">User Managmen</h1>
+            </li>
+
+            <li class="nav-item hovo">
+                <a class="nav-link m-1" style="font-size:larger ;" href="/dash/manageUser/1"> Top 20 |</a>
+            </li>
+
+            <li class="nav-item hovo">
+                <a class="nav-link m-1" style="font-size:larger ;" href="/dash/manageUser/2"> Low 20 |</a>
+            </li>
+
+            <li class="nav-item hovo">
+                <a class="nav-link m-1" style="font-size:larger ;" href="/dash/manageUser/gifts"> Gifts for the k top |</a>
+            </li>
+
+            
+            <li class="nav-item hovo">
+                <a class="nav-link m-1" style="font-size:larger ;" href="/dash/manageUser/giftsL"> Gifts for the k lower </a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+<table class="table">
+
+    <thead class="thead-dark">
+        <tr >
+
+            <th class="col-3">Full Name</th>
+
+            <th class="col-3">Email</th>
+
+            <th class="col-1">Orders</th>
+
+            <th class="col-1">State</th>
+
+            <th class="col-1">Last Login</th>
+
+            <th class="col-1">Gifts</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        {%for item in items%}
+
+        <tr>
+            <th class="col">
+                {{item.name_prefix}}{{item.full_name}}
+            </th>
+
+            <th class="col">
+                {{item.email}}
+            </th>
+
+            <th class="col">
+                {{item.order_count}}
+            </th>
+
+            <th class="col">
+
+                {{item.state}}
+
+            </th>
+
+            <th class="col-2">
+
+                {{item.user__last_login}}
+
+            </th>
+
+            <th class="col">
+                <a href="/dash/manageUser/gift/{{item.email}}">
+                    <i class="fa-solid fa-gift text-danger"></i>
+                </a>
+            </th>
+
+        </tr>
+
+        {%endfor%}
+
+    </tbody>
+</table>
+
+
+{%endblock%}

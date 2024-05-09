@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="icon"type="image/jpeg" sizes="36x90"  href="{%static 'img/icon.png'%}">
+    <title>Dash || gifts</title>
+    <style>
+        body{
+            background-image: url({%static 'img/signBg.jpg'%});
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar bg-dark " >
+
+        <div class="container-fluid">
+
+            <span class="navbar-brand mb-0 h1 text-warning">
+
+                <img src="{% static 'img/icon.png' %}" />
+
+                <span class="h3">SalFind</span>
+
+            </span>
+
+        </div>
+
+    </nav>
+
+    <div class="d-flex justify-content-center mt-5">
+        
+    <div class="card m-5 w-50">
+        <img src="{%static 'img/panEmail.jpg'%}" class="card-img-top" >
+        <div class="card-body">
+            <form method="post" action="">
+                {% csrf_token %}
+                <h5 class="card-title">
+                    {%if t%}
+                    Top users
+                    {%else%}
+                    Lower users
+                    {%endif%}
+                </h5>
+                <p class="card-text"><input placeholder="verification code" type="number" class="form-control" required name="num"/></p>
+                <p class="card-text text-center">
+                    <button class="btn btn-outline-success" type="submit">Go</button>
+                </p>
+            </form>
+        </div>
+    </div>
+    </div>
+
+</body>
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+<script src ="{%static 'js/all.min.js'%}"></script>
+<script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+</html>

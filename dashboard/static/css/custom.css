@@ -1,0 +1,45 @@
+.foot{
+
+    background-color: rgba(0, 0, 0, 0.512);
+
+    color: white;
+
+    position: absolute;
+
+    bottom: 0px;
+
+    width: 100%;
+
+    padding: 8px;
+
+}
+
+.foot2{
+
+    background-color: rgb(0, 0, 0);
+
+    color: white;
+
+    bottom: 0px;
+
+    width: 100%;
+
+    padding: 8px;
+
+}
+
+.cro{
+
+    cursor: pointer;
+}
+
+.act{
+
+    background-color: blueviolet;
+}
+
+.cro:hover{
+
+    background-color: rgba(137, 43, 226, 0.222);
+}
+

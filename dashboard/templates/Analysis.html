@@ -1,0 +1,116 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+
+
+<div class=" row m-0" >
+
+    <div class="col-3 p-0 bg-dark" style="border-right: 2px solid black;min-height:900px" >
+
+        <div class=" bg-dark text-center" style="height: 810px;">
+
+            <h4 class="text-center text-warning p-2" style="border-bottom: .25px solid white;" id="A1">Sales Analysis <span > <i class="fa-solid fa-angle-down"> </span></i></h4>
+
+            <ul id="B1" class="p-0 paner m-0" style="list-style: none; display :hidden">
+    
+                <li>
+                    <a href="/dash/Analysis/2" class="nav-link">Total Sales per Month</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/3">Total Sales by Category</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/4">Total Sales by Gender</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/5">Total Sales by age intervals</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/6"> Total Sales by Status</a>
+                </li>
+
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/7">Total Sales by payment method</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/8">Top 10 states by Total</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/9">Lowr 10 states by Total</a>
+                </li>
+    
+            </ul>
+    
+
+            <h4 style="border-bottom: .25px solid white;" class="text-center text-warning p-2" id="A2">Orders Analysis <span><i class="fa-solid fa-angle-down"></i></span></h4>
+    
+            <ul id="B2" class="p-0 paner m-0" style="list-style: none;">
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/10">Orders by status</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/11"> Orders by gender</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/12"> Orders by category</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/13">Orders by state</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/14">Top 10 counties orders</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/15">Lower 10 counties orders</a>
+                </li>
+    
+            </ul>
+    
+
+            <h4 style="border-bottom: .25px solid white;" id="A3" class="text-center text-warning p-2">Discount Analysis <span><i class="fa-solid fa-angle-down"></i></span></h4>
+    
+            <ul id="B3" class="p-0 paner m-0" style="list-style: none; ">
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/16">Discount by payment method</a>
+                </li>
+    
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/17">Average discount by payment method</a>
+                </li>
+
+                <li>
+                    <a class="nav-link" href="/dash/Analysis/18">Discount VS Month</a>
+                </li>
+
+                
+            </ul>
+    
+        </div>
+    </div>
+
+    <div class="col-9 " style="background-color: rgb(214, 212, 212);">
+
+        {%block ana%}{%endblock%}
+    </div>
+
+<footer class="p-3 text-light bg-dark" style="border-top: 5px solid gold;">
+
+    Services contact with : SalFind@gmail.com 
+
+</footer>
+{%endblock%}

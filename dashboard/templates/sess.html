@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SalFind || General Analysis</title>
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="icon"type="image/jpeg" sizes="36x90"  href="{%static 'img/icon.png'%}">
+</head>
+<body style="background-image: url({%static 'img/anlysis.avif'%});background-repeat:no-repeat;background-position:center ">
+    <nav class="navbar bg-dark navbar-expand-lg " style="border-bottom: 5px solid gold;">
+        <div class="container-fluid ">
+            
+            <ul class="navbar-nav mr-auto d-flex flex-row ">
+
+                <li>
+                    <span class="navbar-brand mb-0 h1 text-warning"> 
+    
+                        <img src="{% static 'img/icon.png' %}" />
+    
+                        <span class="h3">SalFind</span>
+    
+                    </span>
+                </li>
+
+                <li class="nav-item ">
+                    <a href="/generalDash/createSess"  class="nav-link text-light" style="float: left;"> Create Session </a>
+                </li>
+
+                
+                <li class="nav-item ">
+                    <a href="/Logout_view" class="nav-link text-light">Log out</a>
+                </li>
+
+            </ul>
+
+            <i class="fa-solid fa-cat text-light h1 m-2"></i>
+
+        </div>
+    </nav>
+
+    <!--sessions-->
+
+    {%if sess%}
+
+    <div class="d-flex flex-row justify-content-around " style="min-height: 850px;margin:30px 0px 0px 0px">
+
+    {%for se in sess%}
+
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{se.name}}</h5>
+                <p class="card-text">{{se.description}}</p>
+                <p class="card-text">{{se.last_time}}</p>
+                <div class="">
+                    <a href="/generalDash/Analysis/{{se.id}}/1" class="btn btn-primary">Analysis</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    {%endfor%}
+</div>
+
+    <footer class="p-3 text-light bg-dark" style="border-top: 5px solid gold;">
+
+        Services contact with : SalFind@gmail.com 
+    
+    </footer>
+
+
+    {%else%}
+
+    <div class="container p-5" style="margin-bottom: 278px;" >
+        <div class="">
+            <div class="row">
+
+                <div class="col-7 ">
+                    <br>
+
+                    <h1>Oops No Sessions Created !</h1>
+
+                    <p class="h6" style="margin-top: 60px;">you need to creat session right now lets start making free session</p>
+
+                </div>
+
+                <img  class="col-5 p-0" src="{%static 'img/oops.jpg'%}"/>
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="p-3 text-light bg-dark" style="border-top: 5px solid gold;">
+
+        Services contact with : SalFind@gmail.com 
+    
+    </footer>
+
+    {%endif%}
+
+</body>
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+<script src ="{%static 'js/all.min.js'%}"></script>
+<script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+</html>

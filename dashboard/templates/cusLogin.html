@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="icon"type="image/jpeg" sizes="36x90"  href="{%static 'img/icon.png'%}">
+    <title>SalFind || Log in</title>
+</head>
+<body class = "bg-success">
+
+    <!--nav bar-->
+
+    <nav class="navbar bg-dark " >
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1 text-warning"> 
+
+                <img src="{% static 'img/icon.png' %}" />
+
+                <span class="h3">SalFind</span>
+
+            </span>    
+        </div>
+    </nav>
+
+    <!--base content-->
+
+    <div class="container p-5">
+        <div class="">
+            <div class="row bg-light">
+                <img  class="col-5 p-0" src="{%static 'img/login.webp'%}"/>
+
+                <div class="col-7 text-center ">
+
+                    <h1 class="p-2 bg-dark text-light mb-5">Log in</h1>
+                    <form method="post" class="mt-5 justify-content-center pt-5">
+                        {%csrf_token%}
+
+                        <div class="form-group m-5 text-start" style="position: relative;">
+                            <label for="username" class="text-dark"  style=" font-size :larg ; letter-spacing: 2px ;font-weight :700">Username</label>
+                            <input type="text" id="username" name="username" class="form-control " style="background-color: rgba(129, 75, 190, 0.164);color:white ;display:inline" required>
+                            <i class="fas fa-circle-user text-larg" style="position: absolute; right:12px ;bottom:10px"></i>
+                        </div>
+                        <div class="form-group m-5 text-start"style="position: relative;" >
+                            <label for="password" class="text-dark  "  style=" font-size :larg ; letter-spacing: 2px ; font-weight :700 ">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" style="background-color: rgba(129, 75, 190, 0.164);color:white" required>
+                            <i class="fas fa-lock" style="position: absolute; right:12px ;bottom:10px"></i>
+                        </div>
+                        
+                        <div class="form-group m-3 text-center">
+                            <button type="submit" style="font-weight:800" class="btn btn-outline-dark m-3 ">Sign In</button>
+                        </div>
+                    </form>
+                    {%if error%}
+                    <div class="alert alert-danger" role="alert">
+                        {{error}}
+                    </div>
+                    {%endif%}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+<script src ="{%static 'js/all.min.js'%}"></script>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="icon"type="image/jpeg" sizes="36x90"  href="{%static 'img/icon.png'%}">
+    <title>SalFind || Item</title>
+
+    <style>
+    svg:hover{
+
+        cursor: pointer;
+
+    }
+    </style>
+</head>
+<body class = "bg-success">
+
+    <!--nav bar-->
+
+    <nav class="navbar bg-dark " >
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1 text-warning"> 
+
+                <img src="{% static 'img/icon.png' %}" />
+
+                <span class="h3">SalFind</span>
+
+            </span>    
+        </div>
+    </nav>
+
+    <!--base content-->
+
+    <div class="container p-5 mt-5">
+        <div class="">
+            <div class="row bg-light">
+                {% if It.image %}
+                <img class="col-5 p-0" src="{{ It.image.url }}" alt="{{ It.name }}">
+                {% else %}
+                <img class="col-5 p-0" src="{% static 'img/randomItem.jpg' %}" alt="Default Item Image">
+                {% endif %}
+
+                <div class="col-7 text-center ">
+
+                    <h1 class="p-2 bg-dark text-light mb-5 " id="title">{{It.sku}}</h1>
+
+                    <h5 class="text-start w-50">Description</h4>
+
+                    <p class="text-start w-50">
+                        {{It.description}}
+                    </p>
+
+                    <h4 class="text-start">
+                        <span>price:</span>
+
+                        <span id="price">{{It.price}}</span>                       
+                        
+                    </h4>
+
+                    {%if rate%}
+
+                    <h6 class="text-start">
+                        rate : {{rate}}
+                    </h6>
+                    {%else%}
+
+                    <div style="display: flex; flex-direction row">
+                        <span class="h6">Rate product :</span>
+                        <ul style=" display: flex; flex-direction :row ;list-style:none">
+                            <li id="one"  style="margin-right: 3px;" ><i id="one1"class="fa-solid fa-star"></i></li>
+                            <li id="two" style="margin-right: 3px;"><i id="two1" class="fa-solid fa-star"></i></li>
+                            <li id="three" style="margin-right: 3px;"><i id="three1" class="fa-solid fa-star"></i></li>
+                            <li id="four"  style="margin-right: 3px;"><i id="four1" class="fa-solid fa-star"></i></li>
+                            <li id="five" style="margin-right: 3px;"><i id="five1" class="fa-solid fa-star"></i></li>
+                        </ul>
+                    </div>
+                    {%endif%}
+
+                    <hr/>
+                    {%block form%}{%endblock%}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+<script src ="{%static 'js/all.min.js'%}"></script>
+<script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+<script>
+
+    function plus(){
+
+        qt =parseInt($("#qt").attr("value"))
+
+        if(qt == 0){
+            $("#sub").removeAttr("disabled")
+        }
+
+        $("#qt").attr("value",qt+1)
+
+        total = parseFloat($("#price").text()) * (qt + 1.0)
+
+        $("#total").text(total)
+
+    }
+
+    function min(){
+
+        qt =parseInt($("#qt").attr("value"))
+
+        if(qt == 1){
+            $("#sub").attr("disabled",true)
+        }
+
+        console.log(qt)
+
+        if (qt > 0){
+
+            $("#qt").attr("value",qt-1)
+
+            total =  parseFloat($("#price").text()) * (qt - 1.0)
+
+            $("#total").text(total)
+
+        }
+
+    }
+
+    function five(){
+        $("#one1").addClass("text-warning")
+        $("#two1").addClass("text-warning")
+        $("#three1").addClass("text-warning")
+        $("#four1").addClass("text-warning")
+        $("#five1").addClass("text-warning")
+
+        $("#temp").attr("value",5)
+
+        $("#five1").removeClass("text-dark")
+        $("#two1").removeClass("text-dark")
+        $("#three1").removeClass("text-dark")
+        $("#four1").removeClass("text-dark")
+    }
+
+    function four(){
+        $("#one1").addClass("text-warning")
+        $("#two1").addClass("text-warning")
+        $("#three1").addClass("text-warning")
+        $("#four1").addClass("text-warning")
+        $("#five1").addClass("text-dark")
+        $("#temp").attr("value",4)
+
+        $("#two1").removeClass("text-dark")
+        $("#three1").removeClass("text-dark")
+        $("#four1").removeClass("text-dark")
+    }
+
+    function three(){
+        $("#one1").addClass("text-warning")
+        $("#two1").addClass("text-warning")
+        $("#three1").addClass("text-warning")
+        $("#four1").addClass("text-dark")
+        $("#five1").addClass("text-dark")
+        $("#temp").attr("value",3)
+
+        $("#three1").removeClass("text-dark")
+        $("#two1").removeClass("text-dark")
+    }
+
+    function two(){
+        $("#one1").addClass("text-warning")
+        $("#two1").addClass("text-warning")
+        $("#three1").addClass("text-dark")
+        $("#four1").addClass("text-dark")
+        $("#five1").addClass("text-dark")
+        $("#temp").attr("value",2) 
+
+        $("#two1").removeClass("text-dark")
+    }
+
+    function one(){
+        $("#one1").addClass("text-warning")
+        $("#two1").addClass("text-dark")
+        $("#three1").addClass("text-dark")
+        $("#four1").addClass("text-dark")
+        $("#five1").addClass("text-dark")
+        $("#temp").attr("value",1)
+
+    }
+
+    $("#one").click(one)
+
+    $("#two").click(two)
+
+    $("#three").click(three)
+
+    $("#four").click(four)
+
+    $("#five").click(five)
+
+    $("#plus").click(plus)
+
+    $("#minus").click(min)
+
+    $("#five").mouseover
+
+</script>
+
+</html>

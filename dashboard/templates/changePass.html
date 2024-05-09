@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{%load static%}
+<html>
+<head>
+  <title>Change Password</title>
+  <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+  <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+  <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+  <link rel="icon"type="image/jpeg" sizes="36x90"  href="{%static 'img/icon.png'%}">
+</head>
+<body>
+  <    <div class="container mt-5">
+    <h1 class="mb-4">Password Change</h1>
+    <form method="post">
+        {% csrf_token %}
+        <!-- Current Password -->
+        <div class="form-group">
+            <label for="currentPassword">Current Password</label>
+            <input type="password" class="form-control" id="currentPassword" name="current_password" required>
+        </div>
+        <!-- New Password -->
+        <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input type="password" class="form-control" id="newPassword" name="new_password" required>
+        </div>
+        <!-- Confirm New Password -->
+        <div class="form-group">
+            <label for="confirmNewPassword">Confirm New Password</label>
+            <input type="password" class="form-control" id="confirmNewPassword" name="confirm_new_password" required>
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Change Password</button>
+    </form>
+</div>
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+<script src ="{%static 'js/all.min.js'%}"></script>
+<script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+</body>
+</html>

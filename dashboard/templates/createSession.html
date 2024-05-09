@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/custom.css'%}">
+    <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
+    <link rel="icon"type="image/jpeg" sizes="36x90"  href="{%static 'img/icon.png'%}">
+    <title>GeneralDash || create session </title>
+
+</head>
+<body >
+    <!-- header -->
+    <nav class="navbar bg-dark ">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1 text-warning"> Dash </span>
+        </div>
+    </nav>
+
+
+    <div class="d-flex justify-content-around w-100 " style="margin-top: 100px;">
+
+        <div class="container" style="border: .5px solid gray ; border_radius:2px" >
+
+            <h1 class="text-center m-5">
+
+                Create Session
+
+            </h1>
+            <hr>
+            <form method="post" action="" enctype="multipart/form-data" class="form-groub" >
+
+                {% csrf_token %}
+    
+
+                <div class="col-3 d-inline" id="safer" code="{{code}}">
+                    <label class="m-1 h6">Name</label>
+                    {{form.name}}
+                </div>
+
+                <div class="d-inline">
+                    <label class="m-1 h6">Description</label>
+                    {{form.description}}
+                </div>
+    
+                <p class="mt-4">
+    
+                    <div class="col-6 d-inline">
+
+                        <span class="m-2">
+                            <label class="h6">Insert CSV File</label>
+                            {{form.csv_file}}
+                        </span>
+
+                    </div>
+
+                </p>
+
+                
+
+                <p class="text-center">
+                    <button class="btn btn-primary " type="submit">
+
+                        creat
+
+                    </button>
+    
+                </p>
+
+                {%if error %}
+
+                    <div class="alert alert-danger mt-1" role="alert">
+                        {{error}}
+                    </div>
+
+                {%endif%}
+
+            </form>
+        </div>
+</div>
+
+
+</body>
+<script src ="{%static 'js/bootstrap.min.js'%}"></script>
+<script src ="{%static 'js/all.min.js'%}"></script>
+<script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+<script>
+    $("input").addClass("form-control")
+    $("textarea").addClass("form-control")
+</script>
+</html>
+
