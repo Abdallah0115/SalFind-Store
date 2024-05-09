@@ -43,34 +43,25 @@ In adition to this, making a store that contains the dashboard and have machines
 - Kfold Cross Validation
 - Stratified Cross Validation
 
-# Models evaluation 
+# Models evaluation
+
+### Clustring KMeans
+- Bcubed Precision: 0.64
+- Bcubed Recall: 0.6
 
 ### Decision Tree Model
-- Mean Training Accuracy equal to 0.938
-- Mean Training F1-score 0.897
-- Mean Testing Accuracy: 0.89
-- Mean Testing F1-score: 0.82
+- Mean Training Accuracy equal to 0.92
+- Mean Training F1-score 0.87
+- Mean Testing Accuracy: 0.88
+- Mean Testing F1-score:  0.80
 
-### Linear Regression model evaluation ( Cluster 1)
-- centroid = 225.76 $
-- Mean R squared equal to 0.97
-- Mean RMSE equal to 28.45 
-- Standard Deviation of RMSE: 0.57
+### Linear Regression model evaluation ( cluster 1 ) 
+- Mean R squared equal to 0.99
+- Mean RMSE equal to 65.1 
+- Standard Deviation of RMSE: 0.81
 
-### Linear Regression model evaluation ( Cluster 2 , 8 , 7 )
-- centroids => (17766.48 $ , 13304.08 $ , 24435.53 $)  
-- Mean R squared equal to 0.98
-- Mean RMSE equal to 661.69 
-- Standard Deviation of RMSE: 31.1
+### Linear Regression model evaluation ( cluster 2 )
+- Mean R squared equal to 0.96
+- Mean RMSE equal to 372.77 
+- Standard Deviation of RMSE: 5.86
 
-### Linear Regression model evaluation ( Cluster 3 , 5 )
-- centroids => (5626.4 $ , 8546.096 $ )
-- Mean R squared equal to 0.91
-- Mean RMSE equal to 475.5 
-- Standard Deviation of RMSE: 11.01
-
-### Linear Regression model evaluation ( Cluster 6 , 10 )
-- centroids => (3253.89 $, 1465.08 $ ) 
-- Mean R squared equal to 0.976
-- Mean RMSE equal to 152.54 
-- Standard Deviation of RMSE: 2.8
