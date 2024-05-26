@@ -28,9 +28,19 @@
 
                 <h5 class="card-title">{{item.item__sku}} {{item.sku}}</h5>
 
-                <p class="card-text">price : {{item.item__price}} {{item.price}}</p>
+                <p class="card-text">Price : {{item.item__price}} {{item.price}}</p>
 
-                <p class="card-text">category : {{item.item__Category}} {{item.Category}}</p>
+                <p class="card-text">Category : {{item.item__Category}} {{item.Category}}</p>
+
+                {%if item.itemrate__rate or item.avg_rate %}
+
+                <p class="card-text">Rate : {{item.itemrate__rate}} {{item.avg_rate}}</p>
+
+                {%else%}
+
+                <p class="card-text">Rate : 0 </p>
+
+                {%endif%}
 
             </div>
 

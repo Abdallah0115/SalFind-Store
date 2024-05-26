@@ -18,12 +18,13 @@
             <!-- New Password -->
             <div class="form-group">
                 <label for="newPassword">New Password</label>
-                <input type="password" class="form-control" id="newPassword" name="new_password" required>
+                <!--{{form.new_password1}}-->
+                {{form}}
             </div>
             <!-- Confirm New Password -->
             <div class="form-group">
                 <label for="confirmNewPassword">Confirm New Password</label>
-                <input type="password" class="form-control" id="confirmNewPassword" name="confirm_new_password" required>
+                <!--{{form.new_password2}}-->
             </div>
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary m-5">Reset Password</button>
@@ -33,5 +34,8 @@
     <script src ="{%static 'js/bootstrap.min.js'%}"></script>
     <script src ="{%static 'js/all.min.js'%}"></script>
     <script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>
+    <script>
+        $("input").addClass("form-control")
+    </script>
 </body>
 </html>

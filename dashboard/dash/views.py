@@ -24,7 +24,7 @@ def Login(req):
                 password = req.POST.get('password')
                 user = authenticate(req, username = username, password=password)
                 cust = Cust.objects.filter(email = username)
-                gues = guest.objects.filte(email = username)
+                gues = guest.objects.filter(email = username)
 
                 if user is not None and not cust and not gues:
                     login(req, user)

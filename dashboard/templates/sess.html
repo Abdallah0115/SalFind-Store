@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="{%static 'css/custom.css'%}">
     <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
     <link rel="icon"type="image/jpeg" sizes="36x90"  href="{%static 'img/icon.png'%}">
-</head>
+</head> 
+{%if sess%}
 <body style="background-image: url({%static 'img/anlysis.avif'%});background-repeat:no-repeat;background-position:center ">
+
     <nav class="navbar bg-dark navbar-expand-lg " style="border-bottom: 5px solid gold;">
         <div class="container-fluid ">
             
@@ -32,7 +34,7 @@
 
                 
                 <li class="nav-item ">
-                    <a href="/Logout_view" class="nav-link text-light">Log out</a>
+                    <a href="/generalDash/Logout" class="nav-link text-light">Log out</a>
                 </li>
 
             </ul>
@@ -106,6 +108,66 @@
     {%endif%}
 
 </body>
+{%else%}
+
+<nav class="navbar bg-dark navbar-expand-lg " style="border-bottom: 5px solid gold;">
+    <div class="container-fluid ">
+        
+        <ul class="navbar-nav mr-auto d-flex flex-row ">
+
+            <li>
+                <span class="navbar-brand mb-0 h1 text-warning"> 
+
+                    <img src="{% static 'img/icon.png' %}" />
+
+                    <span class="h3">SalFind</span>
+
+                </span>
+            </li>
+
+            <li class="nav-item ">
+                <a href="/generalDash/createSess"  class="nav-link text-light" style="float: left;"> Create Session </a>
+            </li>
+
+            
+            <li class="nav-item ">
+                <a href="/generalDash/Logout" class="nav-link text-light">Log out</a>
+            </li>
+
+        </ul>
+
+        <i class="fa-solid fa-cat text-light h1 m-2"></i>
+
+    </div>
+</nav>
+
+<div class="container p-5" style="margin-bottom: 278px;" >
+    <div class="">
+        <div class="row">
+
+            <div class="col-7 ">
+                <br>
+
+                <h1>Oops No Sessions Created !</h1>
+
+                <p class="h6" style="margin-top: 60px;">you need to creat session right now lets start making free session</p>
+
+            </div>
+
+            <img  class="col-5 p-0" src="{%static 'img/oops.jpg'%}"/>
+
+        </div>
+
+    </div>
+</div>
+
+<footer class="p-3 text-light bg-dark" style="border-top: 5px solid gold;">
+
+    Services contact with : SalFind@gmail.com 
+
+</footer>
+
+{%endif%}
 <script src ="{%static 'js/bootstrap.min.js'%}"></script>
 <script src ="{%static 'js/all.min.js'%}"></script>
 <script src ="{%static 'js/code.jquery.com_jquery-3.7.1.min.js'%}"></script>

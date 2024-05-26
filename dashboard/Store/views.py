@@ -30,27 +30,30 @@ def Welcome(req):
 
 def Login(req):
 
-    if req.method == 'POST':
+    try:
+        if req.method == 'POST':
 
-        username = req.POST.get('username')
+            username = req.POST.get('username')
 
-        password = req.POST.get('password')
+            password = req.POST.get('password')
 
-        user = authenticate(req, username=username, password=password) 
+            user = authenticate(req, username=username, password=password) 
 
-        cu = Cust.objects.get(email = req.POST.get('username'))
+            cu = Cust.objects.get(email = req.POST.get('username'))
 
-        if (user and cu):
+            if (user and cu):
 
-            login(req, user)
+                login(req, user)
 
-            return redirect('/SalFind/Market/0')
+                return redirect('/SalFind/Market/0')
 
-        else:
+            else:
 
-            return render(req, 'cusLogin.html', {'error': 'Invalid username or password'})
+                return render(req, 'cusLogin.html', {'error': 'Invalid username or password'})
 
-    return render(req, 'cusLogin.html')
+        return render(req, 'cusLogin.html')
+    except:
+        return render(req, 'cusLogin.html', {'error': 'Invalid username or password'})
 
 def Emailenter(req):
     if(req.method == "POST"):
@@ -111,60 +114,69 @@ def Sign(req):
     return render(req,'sign.html',{'form':form , "email":req.session.get("username")})
 
 def forgot(req):
-    if(req.method == "POST"):
-        if(req.POST.get("Custmail")):
+    try:
+        if(req.method == "POST"):
+            if(req.POST.get("Custmail")):
 
-            va = searchForm(req.POST)
+                va = searchForm(req.POST)
 
-            usu = Cust.objects.get(email = req.POST.get("Custmail"))
+                usu = Cust.objects.get(email = req.POST.get("Custmail"))
 
-            if(va.is_valid() and usu):
-                code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
-                hashCode = make_password(code)
-                subject = 'SaleFind store Coupone !'
-                message = f"we gona check that it's yor email the verification code is {code}"
-                sender = 'SalFind@gmail.com'
-                recipient_list = [req.POST.get("Custmail")]
-                send_mail(subject, message, sender, recipient_list,fail_silently=False)
-                req.session["username"] = req.POST.get("Custmail")
-                req.session["code"] = hashCode
-                return redirect("/SalFind/verify")
+                if(va.is_valid() and usu):
+                    code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+                    hashCode = make_password(code)
+                    subject = 'SaleFind store Coupone !'
+                    message = f"we gona check that it's yor email the verification code is {code}"
+                    sender = 'SalFind@gmail.com'
+                    recipient_list = [req.POST.get("Custmail")]
+                    send_mail(subject, message, sender, recipient_list,fail_silently=False)
+                    req.session["username"] = req.POST.get("Custmail")
+                    req.session["code"] = hashCode
+                    return redirect("/SalFind/verify")
 
-            else:
+                else:
 
-                return render(req ,"emailValid.html" ,{"Error":"NOT VALID Email!"})
+                    return render(req ,"emailValid.html" ,{"Error":"NOT VALID Email!"})
 
-    else:
-        return render(req ,"emailValid.html")
+        else:
+            return render(req ,"emailValid.html")
     
-    return render(req ,"emailValid.html")
+        return render(req ,"emailValid.html")
+    except:
+        return redirect("/SalFind/login")
 
 def forgotVer(req):
-    if(req.method == "POST"):
+    try:
+        if(req.method == "POST"):
         
-        if(req.POST.get("CustValid")):
-            if(check_password(req.POST.get("CustValid"),req.session.get("code"))):
-                return redirect("/SalFind/reset")
-            else:
-                return render(req,"valid.html" ,{"Error":"NOT VALID !"})
-    else:
-        return render(req,"valid.html" )
+            if(req.POST.get("CustValid")):
+                if(check_password(req.POST.get("CustValid"),req.session.get("code"))):
+                    return redirect("/SalFind/reset")
+                else:
+                    return render(req,"valid.html" ,{"Error":"NOT VALID !"})
+        else:
+            return render(req,"valid.html" )
     
-    return render(req,"valid.html" )
+        return render(req,"valid.html" )
+    except:
+        return redirect("/SalFind/login")
 
 User = get_user_model()
 
 def password_reset_view(request):
-    user = User.objects.get(email = request.session.get("username"))
-    if request.method == 'POST':
-        form = UserPasswordResetForm(user, request.POST)
-        if form.is_valid():
-            form.save()
+    try:
+        user = User.objects.get(email = request.session.get("username"))
+        if request.method == 'POST':
+            form = UserPasswordResetForm(request.POST, user = user)
+            if form.is_valid():
+                form.save()
             # Redirect to password reset success page or any other page
-            return redirect('/SalFind/login')
-    else:
-        form = UserPasswordResetForm(user)
-    return render(request, 'reset.html', {'form': form})
+                return redirect('/SalFind/login')
+        else:
+            form = UserPasswordResetForm(user = user)
+        return render(request, 'reset.html', {'form': form})
+    except:
+        return redirect("/SalFind/login")
 
 @login_required
 def Market(req,id):

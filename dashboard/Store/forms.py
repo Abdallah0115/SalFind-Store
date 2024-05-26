@@ -113,13 +113,29 @@ class UserPasswordUpdateForm(forms.Form):
 User = get_user_model()
 
 class UserPasswordResetForm(SetPasswordForm):
+    #current_password = forms.CharField(label='Current Password', widget=forms.PasswordInput)
+    #new_password = forms.CharField(label='New Password', widget=forms.PasswordInput)
+    #confirm_new_password = forms.CharField(label='Confirm New Password', widget=forms.PasswordInput)
+
     def __init__(self, user, *args, **kwargs):
         self.user = user
-        super().__init__(user, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
-    def save(self, commit=True):
-        # Save the new password for the user
-        self.user.set_password(self.cleaned_data["new_password1"])
-        if commit:
-            self.user.save()
-        return self.user
+    #def clean_current_password(self):
+    #    current_password = self.cleaned_data.get('current_password')
+    #    if not self.user.check_password(current_password):
+    #        raise forms.ValidationError('Invalid current password')
+    #    return current_password
+
+    def clean_confirm_new_password(self):
+        new_password = self.cleaned_data.get('new_password')
+        confirm_new_password = self.cleaned_data.get('confirm_new_password')
+        if new_password != confirm_new_password:
+            raise forms.ValidationError('New passwords do not match')
+        return confirm_new_password
+
+    def save(self):
+        new_password = self.cleaned_data.get('new_password')
+        self.user.password = make_password(new_password)
+        self.user.save()
+

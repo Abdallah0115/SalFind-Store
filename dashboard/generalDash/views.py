@@ -39,7 +39,7 @@ def Log(req):
         return render(req, 'cusLogin.html')
     except:
 
-        return render(req, 'genOops.html')
+        return render(req, 'cusLogin.html', {'error': 'Invalid username or password'})
 
 def Emailenter(req):
     try:
@@ -124,8 +124,8 @@ def Sess(req):
 
         return render(req, 'genOops.html')
 
-@login_required
-def validatCsv(df):
+
+def VCsv(df):
     expected_columns = ['order_id', 'order_date', 'status', 'item_id', 'sku', 'qty_ordered',
                         'price', 'value', 'discount_percentage', 'discount_amount', 'total',
                         'category', 'payment_method', 'bi_st', 'cust_id', 'year', 'month',
@@ -134,12 +134,16 @@ def validatCsv(df):
                         'Place Name', 'County', 'City', 'State', 'Zip', 'Region', 'User Name']
     col = df.columns
     for fe in col:
-        if(fe in expected_columns):
-            return False
+        if(fe not in expected_columns):
+            return True
         
-    if(df.isnull().sum() / df.shape[0] >= 0.3 ):
-        return False
-    return True
+
+    nu = df.isnull().sum()
+
+    for fet in nu:
+        if(fet / df.shape[0] >= 0.3):
+            return True
+    return False
 
 @login_required
 def creatSess(req):
@@ -156,7 +160,7 @@ def creatSess(req):
 
                 df = pd.read_csv(file)
 
-                if(validatCsv(df)):
+                if(VCsv(df)):
 
                     return render(req,"createSession.html",{'form':se,'error':"Not Valid data"})
 
@@ -268,7 +272,7 @@ def Home(req ,obj ,num):
     
         elif(num == 13):
             chart = charts.orders_per_state()
-            return render(req , "incom_per_mon2.html" ,{"graph":chart , "title":"Income VS Lowe 10 States",'obj':obj})
+            return render(req , "incom_per_mon2.html" ,{"graph":chart , "title":"Number orders per state",'obj':obj})
     
         elif(num == 14):
             chart = charts.Top_5_Counties_by_Quantity_Ordered()

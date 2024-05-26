@@ -427,7 +427,7 @@ class Analysis:
 
 # Update layout
         fig.update_layout(
-                        titlfe_text="Number of Orders per State",
+                        title_text="Number of Orders per State",
                         geo_scope="usa", height = 600
                 )
         chart = fig.to_html()
