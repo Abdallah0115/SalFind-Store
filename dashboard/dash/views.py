@@ -17,20 +17,14 @@ import os
 
 
 def Login(req):
-
     try:
             if req.method == 'POST':
                 username = req.POST.get('username')
                 password = req.POST.get('password')
                 user = authenticate(req, username = username, password=password)
                 cust = Cust.objects.filter(email = username)
-<<<<<<< HEAD
                 gues = guest.objects.filter(email = username)
-=======
-                #gues = guest.objects.filte(email = username)
->>>>>>> origin/main
-
-                if user is not None and not cust :
+                if user is not None and not cust and not gues :
                     login(req, user)
 
                     return redirect('/dash/hello')

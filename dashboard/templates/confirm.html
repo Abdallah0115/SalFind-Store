@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{%static 'css/custom.css'%}">
     <link rel="stylesheet" href="{%static 'css/all.min.css'%}">
     <link rel="icon"type="image/jpeg" sizes="36x90"  href="{%static 'img/icon.png'%}">
-    <title>Email Validation</title>
+    <title>Password Reset</title>
     <style>
         body{
             background-image: url({%static 'img/signBg.jpg'%});
@@ -42,18 +42,27 @@
             <form method="post" action="">
                 {% csrf_token %}
                 <p class="card-text">
-                    {{form.as_p}}
+                    <div>
+                        <label class="h5">Enter New Password</label>
+                        {{form.new_password1}}
+                    </div>
+
+                    <div>
+                        <label class="h5">Confirm New Password</label>
+                        {{form.new_password2}}
+                    </div>
                 </p>
-                <p class="card-text text-center"><button class="btn btn-outline-success" type="submit">Check</button></p>
+                <p class="card-text text-center "><button class="btn btn-outline-success" type="submit">Check</button></p>
             </form>
+            
         </div>
     </div>
     </div>
 
-    {%if Error%}
+    {%if form.error%}
 
     <div class="alert alert-primary w-50" role="alert">
-        {{Error}}
+        {{form.error}}
     </div>
 
     {%endif%}

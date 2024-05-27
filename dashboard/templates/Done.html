@@ -39,13 +39,16 @@
     <div class="card m-5 w-50">
         <img src="{%static 'img/panEmail.jpg'%}" class="card-img-top" >
         <div class="card-body">
-            <form method="post" action="">
-                {% csrf_token %}
-                <p class="card-text">
-                    {{form.as_p}}
-                </p>
-                <p class="card-text text-center"><button class="btn btn-outline-success" type="submit">Check</button></p>
-            </form>
+            <h3>Password reset sent</h3>
+        
+            <p class="card-text">
+                We’ve emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly.
+            </p>
+
+            <p class="card-text">
+                If you don’t receive an email, please make sure you’ve entered the address you registered with, and check your spam folder.
+            </p>
+            
         </div>
     </div>
     </div>

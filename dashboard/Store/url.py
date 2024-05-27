@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views as StoreViews
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -34,9 +35,11 @@ urlpatterns = [
 
     path('SalFind/EditPass/',StoreViews.change_password,name = "SalFind/edPass"),
 
-    path('SalFind/verfyEmail',StoreViews.forgot,name = "SalFind/vefyEmail"),
+    path('SalFind/verfyEmail',auth_views.PasswordResetView.as_view(template_name = "emailValid.html") ,name = "SalFind/vefyEmail"),
 
-    path('SalFind/verify',StoreViews.forgotVer,name = "/SalFind/verify"),
+    path('password_reset_done/',auth_views.PasswordResetDoneView.as_view(template_name = "Done.html"),name = "password_reset_done"),
 
-    path('SalFind/reset',StoreViews.password_reset_view,name = "SalFind/reset"),
+    path('password_reset_confirm/<uidb64>/<token>',auth_views.PasswordResetConfirmView.as_view(template_name = "confirm.html"),name = "password_reset_confirm"),
+
+    path('password_reset_complete/',auth_views.PasswordResetCompleteView.as_view(template_name = "complete.html") ,name = "password_reset_complete"),
 ]

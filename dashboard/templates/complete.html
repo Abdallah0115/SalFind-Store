@@ -39,13 +39,16 @@
     <div class="card m-5 w-50">
         <img src="{%static 'img/panEmail.jpg'%}" class="card-img-top" >
         <div class="card-body">
-            <form method="post" action="">
-                {% csrf_token %}
-                <p class="card-text">
-                    {{form.as_p}}
-                </p>
-                <p class="card-text text-center"><button class="btn btn-outline-success" type="submit">Check</button></p>
-            </form>
+            <h3>Password reset complete</h3>
+
+            <p class="card-text">
+                Your password has been set. You may go ahead and log in now.
+            </p>
+
+            <div class="text-center">
+                <a href="/SalFind/login" class="btn btn-outline-success" >Go Login !</a>
+            </div>
+
         </div>
     </div>
     </div>
