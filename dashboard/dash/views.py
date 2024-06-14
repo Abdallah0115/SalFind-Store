@@ -3,15 +3,15 @@ from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
 from Store.models import Cust, Item, ItemRate, Coupon, order
 from .forms import ItemForm, ItemEditForm, CouponForm
+from django.db.models.functions import Round
 from django.db.models import Q ,Avg ,Count
 from django.core.mail import send_mail
+from generalDash.models import guest
 from django.conf import settings
 from .Analysis import Analysis
-from generalDash.models import guest
 import pandas as pd
 import random
 import string
-import os
 
 
 
@@ -254,7 +254,7 @@ def ManageItem(req):
                 items =  Item.objects.filter(  
                                             Q(sku__icontains=query) |
                                             Q(Category__name__icontains=query)
-                                            ).annotate(average_rating=Avg('itemrate__rate'))
+                                            ).annotate(average_rating=Round(Avg('itemrate__rate'),1))
 
             else:
 

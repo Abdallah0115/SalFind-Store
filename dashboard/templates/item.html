@@ -11,14 +11,14 @@
 
         <span>quantity : </span>
 
-        <input name="quantity" id="qt"value="0" type="text" style="border:0px; " class="w-25" readonly>
+        <input name="quantity" id="qt" value="0" type="text" style="border:0px; " class="w-25" readonly>
 
         <button id="plus" type="button" class="btn btn-primary m-2">+</button>
 
         <button id="minus" type="button" class="btn btn-primary m-2">-</button>
 
         <div class="mt-1">
-
+<!--
             <label class="d-iniline">pay method :</label>
 
             <select name="payM" class="form-control w-75 d-inline" >
@@ -51,13 +51,15 @@
 
             </select>
 
-        </div>
+        -->
 
+        </div>
+<!--
         <div class="mt-1">
             <label>Coupone :</label>
             <input class="form-control w-75 d-inline" name="cop" type="text" maxlength="10" minlength="10" placeholder="Coupone"/>
         </div>
-
+    -->
         <input type="number" name="rate" style="display: none;" id="temp" />
 
     </div>
@@ -74,8 +76,9 @@
 
     <hr class="mt-3">
 
-    <div class="m-2">
-        <button type="submit" class="btn btn-outline-success w-50 text-center" disabled id = "sub"> Show Offer ! </button>
+    <div class="m-6">
+        <button type="submit" class="btn btn-outline-success w-50 text-center" disabled id = "sub"> Add to cart ! </button>
+        <a href = "/SalFind/Market/0" class="btn btn-outline-success w-50 text-center mt-2" >Back</a> 
     </div>
 
 </form>

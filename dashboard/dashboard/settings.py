@@ -166,12 +166,9 @@ MEDIA_URL = '/media/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "localhost"
 EMAIL_PORT = "1025"
-#EMAIL_USER = ""
-#EMAIL_HOST_USER = ""
-#EMAIL_HOST_PASSWORD = ""
-#EMAIL_USE_TLS = False
 
-#EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-#EMAIL_HOST_USER = 'bd5397cfa8c9fd'
-#EMAIL_HOST_PASSWORD = 'faae50a53d2955'
-#EMAIL_PORT = '2525'
+#stripe_config
+STRIPE_TEST_PUBLIC_KEY = os.getenv('STRIPE_TEST_PUBLIC_KEY',
+                                    'pk_test_51PQwi9BQ4VasPfaP2TStJuczeYCs2YRnbNc9cbODUWmv1ob4p4EHYbWI6nzWM3n045cLdbTt0fl5mbpWZo4NBq9K00VgExkhs8')
+STRIPE_TEST_SECRET_KEY = os.getenv('STRIPE_TEST_SECRET_KEY',
+                                    'sk_test_51PQwi9BQ4VasPfaPUs94Piq6rUYL8JCPsV9ItNyXe7WUl00f6NRZMB5dKM9ZeLcU1isPg13mu4ahy6LSmerEKDSt002LZg47M7')

@@ -1,0 +1,74 @@
+{%extends 'baseMarket.html'%}
+
+{%load static%}
+{%block itemsS%}
+
+<div style="display: flex; justify-content : center ; margin-top: 100px;">
+    <div class="card" style="width: 500px;">
+        <img class="card-img-top" src="{%static 'img/fin.jpg'%}" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Payment Method</h5>
+        </div>
+        
+        <div class="card-body">
+            <form method="post">
+
+                {% csrf_token %}
+    
+                <div>
+                  <label class="d-iniline">pay method :</label>
+    
+                  <select name="payM" class="form-control w-75 d-inline" >
+    
+                    <option value="cod">cod</option>
+    
+                    <option value="Easypay">Easypay</option>
+    
+                    <option value="easypay_voucher">easypay_voucher</option>
+    
+                    <option value="Payaxis">Payaxis</option>
+    
+                    <option value="bankalfalah">bankalfalah</option>
+    
+                    <option value="Easypay_MA">Easypay_MA</option>
+    
+                    <option value="jazzvoucher">jazzvoucher</option>
+    
+                    <option value="jazzwallet">jazzwallet</option>
+    
+                    <option value="customercredit">customercredit</option>
+    
+                    <option value="apg">apg</option>
+    
+                    <option value="mcblite">mcblite</option>
+    
+                    <option value="cashatdoorstep">cashatdoorstep</option>
+    
+                    <option value="financesettlement">financesettlement</option>
+    
+                  </select>
+    
+                </div>
+
+                
+                <div class="m-2">
+                    {%if messege%}
+                    <div class="alert alert-danger" role="alert">
+                        {{messege}}
+                    </div>
+                    {%endif%}
+                </div>
+                <div>
+                    <label class="d-iniline">Copone (optional)</label>
+                    <input type="text" name="cop" class="form-control w-75 d-inline"/>
+                </div>
+                <hr>
+                <button class="btn btn-outline-success" type="submit">Go Cart !</button>
+                <a href="/SalFind/Market/0" class="btn btn-outline-success">Back</a>
+            </form>
+        </div>
+      </div>
+</div>
+
+
+{%endblock%}

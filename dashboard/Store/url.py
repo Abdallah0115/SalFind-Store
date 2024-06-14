@@ -19,9 +19,17 @@ urlpatterns = [
 
     path('SalFind/Market/<int:id>',StoreViews.Market,name='SaleFind/Market/'),
 
-    path('SalFind/Market/Item/<str:sk>',StoreViews.item,name="SalFind/Market/Item/"),
+    path('SalFind/Market/Cart',StoreViews.Cart,name='SaleFind/Market/Cart'),
 
-    path('SalFind/Market/Item/statu/<str:item>',StoreViews.offer,name="SalFind/Market/statu"),
+    path('SalFind/Market/Cartrem/<int:index>', StoreViews.remCart, name='SaleFind/Market/Cartrem'),
+
+    path('SalFind/Market/pay',StoreViews.CreateCheckoutSessionView.as_view(),name='create-checkout-session'),
+
+    path('SalFind/Market/pay/success',StoreViews.success_order,name='create-checkout-session'),
+    
+    path('SalFind/Market/pay/fail',StoreViews.fail_order,name='create-checkout-session'),
+
+    path('SalFind/Market/Item/<str:sk>',StoreViews.item,name="SalFind/Market/Item/"),
 
     path('SalFind/Market/logout',StoreViews.Logout_view,name = "SalFind/Market/logout"),
 

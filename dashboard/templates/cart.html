@@ -1,0 +1,112 @@
+{%extends 'baseMarket.html'%}
+
+{%load static%}
+{%block itemsS%}
+{%if itemss%}
+
+<div> 
+
+    <form class="row fw-bold h4 p-3" method="post"  action="{%if is_code%}/SalFind/Market/pay/success{%else%}/SalFind/Market/pay{%endif%}">
+        <div class="col-6"> Total : {{tot}}</div>
+
+        {% csrf_token %}
+    
+        <span class="col-2">
+            <label class="p-1">Payment Method</label>
+            <input class="form-control" type="text" value="{{payM}}" name="payM" disabled>
+        </span>
+
+        <span>
+            <button type="submit" class="btn btn-outline-success"> Pay !</button>
+        </span>
+
+    </form>
+</div>
+<hr>
+
+
+{%if bola%}
+<div id="my-animation">
+    <div class="alert m-4 alert-info alert-dismissible fade show" role="alert">
+        <i class="far fa-laugh-wink text-danger h3"></i> <strong class="h2"> Congratulations!</strong> you won a sale at the following items {%for it in saleOrd%} , {{it}}  {%endfor%}    
+      </div>
+</div>
+{%endif%}
+
+<table class="table">
+
+    <thead class="thead-dark">
+        <tr >
+
+            <th class="col-2">Item</th>
+
+            <th class="col-2">Category</th>
+
+            <th class="col-1">Price</th>
+
+            <th class="col-1">Amount</th>
+
+            <th class="col-1">Befor sale</th>
+
+            <th class="col-1">After sale</th>
+
+            <th class="col-1">Sale</th>
+
+            <th class="col-1">Remove</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        {%for item in itemss%}
+
+        <tr>
+            <th class="col">
+                {{item.sku}}
+            </th>
+
+            <th class="col">
+                {{item.category}}
+            </th>
+
+            <th class="col">
+                {{item.price}}
+            </th>
+
+            <th class="col">
+                {{item.qt}}
+            </th>
+
+            <th class="col">
+                {{item.total}}
+            </th>
+
+            <th class="col">
+                {{item.newT}}
+            </th>
+
+            <th class="col">
+                {{item.sale}}
+            </th>
+
+            <th class="col h5">
+                <a href="/SalFind/Market/Cartrem/{{item.index}}">
+                    <i class="fa-solid fa-circle-xmark text-danger"></i>
+                </a>
+            </th>
+
+        </tr>
+
+        {%endfor%}
+
+    </tbody>
+
+</table>
+{%else%}
+<h1 class="m-2">No Items In The Cart Yet !</h1>
+<p class="m-4 h6">
+    please go and add some items to the cart to be bought.
+</p>
+{%endif%}
+
+{%endblock%}

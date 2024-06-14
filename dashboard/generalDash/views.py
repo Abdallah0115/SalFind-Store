@@ -49,10 +49,11 @@ def Emailenter(req):
 
                 va = searchForm(req.POST)
 
-                if(va.is_valid() ):
+                use = User.objects.filter(email = req.POST.get("Custmail"))
+                if(va.is_valid() and not use):
                     code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
                     hashCode = make_password(code)
-                    subject = 'SaleFind store Coupone !'
+                    subject = 'SaleFind store !'
                     message = f"we gona check that it's yor email the verification code is {code}"
                     sender = 'SalFind@gmail.com'
                     recipient_list = [req.POST.get("Custmail")]
@@ -63,12 +64,15 @@ def Emailenter(req):
 
                 else:
 
-                    return render(req ,"emailValid.html" ,{"Error":"NOT VALID !"})
+                    va = searchForm()
+
+                    return render(req ,"emailValid.html" ,{"Error":"NOT VALID !","form":va})
 
         else:
-            return render(req ,"emailValid.html")
-    
-        return render(req ,"emailValid.html")
+            va = searchForm()
+            return render(req ,"emailValid.html",{"form":va})
+        va = searchForm(req.POST)
+        return render(req ,"emailValid.html",{"fprm":va})
     except:
         return render(req, 'genOops.html')
 
@@ -149,6 +153,13 @@ def VCsv(df):
 def creatSess(req):
     try:
 
+        feat = ['order_id', 'order_date', 'status', 'item_id', 'sku', 'qty_ordered',
+                        'price', 'value', 'discount_percentage', 'discount_amount', 'total',
+                        'category', 'payment_method', 'bi_st', 'cust_id', 'year', 'month',
+                        'ref_num', 'Name Prefix', 'First Name', 'Middle Initial', 'Last Name',
+                        'Gender', 'age', 'full_name', 'E Mail', 'SSN', 'Phone No. ',
+                        'Place Name', 'County', 'City', 'State', 'Zip', 'Region', 'User Name']
+
         if(req.method == "POST"):
             mod = req.POST.copy()
             mod["gues"] = guest.objects.get(email = req.user.username)
@@ -162,7 +173,7 @@ def creatSess(req):
 
                 if(VCsv(df)):
 
-                    return render(req,"createSession.html",{'form':se,'error':"Not Valid data"})
+                    return render(req,"createSession.html",{'form':se,'feat':feat,'error':"Not Valid data"})
 
                 se.save()
 
@@ -170,12 +181,12 @@ def creatSess(req):
 
             else:
 
-                return render(req,"createSession.html",{'form':se,'error':"Not valid input"})
+                return render(req,"createSession.html",{'form':se,'feat':feat,'error':"Not valid input"})
         else:
             se = sessForm()
-            return render(req,"createSession.html",{'form':se})
+            return render(req,"createSession.html",{'form':se,'feat':feat})
     except:
-        return render(req, 'genOops.html')
+        return render(req,"createSession.html",{'form':se,'feat':feat,'error':"Not valid input must be FILE.csv"})
 
 @login_required
 def Home(req ,obj ,num):

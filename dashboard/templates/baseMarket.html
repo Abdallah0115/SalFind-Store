@@ -12,6 +12,9 @@
     <title>Document</title>
 
     <style>
+        .card-deck{
+            margin: 0px;
+        }
         * {box-sizing: border-box;}
         
         .topnav {
@@ -73,11 +76,45 @@
             border: 1px solid #ccc;  
             }
         }
+
+        body::-webkit-scrollbar {
+            height: 12px; /* Height of the horizontal scrollbar */
+        }
+    
+        body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            margin: 2px;
+        }
+    
+        body::-webkit-scrollbar-thumb {
+            background: #555; 
+            border-radius: 10px;
+        }
+    
+        body::-webkit-scrollbar-thumb:hover {
+            background:  #4a3dc3; 
+        }
+    
+        /* Optional: Styles for the vertical scrollbar */
+        body::-webkit-scrollbar {
+            width: 15px; /* Width of the vertical scrollbar */
+        }
+
+        .cart{
+            position:fixed;
+            bottom: 40px;
+            z-index: 1;
+            right:20px;
+            cursor: pointer;
+        }
+
         </style>
 </head>
 <body>
 
-    <div class="topnav bg-dark d-flex flex-row text-light p-1">
+    
+
+    <div class="topnav bg-dark d-flex flex-row text-light p-1 fw-bold">
 
         <div class="container-fluid d-inline">
             <ul class="navbar-nav mr-auto d-flex flex-row ">
@@ -94,12 +131,12 @@
     
                 </li>
     
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="/SalFind/Market/0">Market</a>
+                <li class="nav-item ">
+                    <a class="nav-link text-light" href="/SalFind/Market/0"> Market </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="/SalFind/Market/logout">logout</a>
+                    <a class="nav-link text-light" href="/SalFind/Market/logout"> logout </a>
                 </li>
 
                 <li>
@@ -132,12 +169,76 @@
 
     </div>
 
+    <a class="cart btn btn-primary p-3 rounded-circle" href="/SalFind/Market/Cart">
+        
+        <i class="fas fa-shopping-cart h3"></i>
+        <h3 class="d-inline">{{cart}}</h3>
+    </a>
 
+    {%if items %}
 
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="{%static 'img/adv1.jpg'%}" height="700px" alt="First slide">
+
+                <div class="carousel-caption d-none d-md-block">
+                    <h4></h4>
+                    <p>.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{%static 'img/adv2.AVIF'%}" height="700px" alt="Second slide">
+                
+                <div class="carousel-caption d-none d-md-block">
+                    <h4></h4>
+                    <p></p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{%static 'img/adv3.jpg'%}" height="700px" alt="Third slide">
+
+                <div class="carousel-caption d-none d-md-block">
+                    <h4></h4>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+    </div>
+
+    <marquee behavior="scroll" direction="right" class="bg-dark">
+
+        <span id="sal" class="navbar-brand mb-0 h1 text-warning" style="position: relative;"> 
+
+            <img src="{% static 'img/icon.png' %}" />
+
+            <span class="h3">SalFind</span>
+
+        </span>
+
+    </marquee>
+
+    {%endif%}
+
+    
 
         {%block itemsS%}
 
         {%endblock%}
+
+
 
 
 </body>

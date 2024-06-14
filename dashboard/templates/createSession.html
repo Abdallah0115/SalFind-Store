@@ -20,6 +20,13 @@
         </div>
     </nav>
 
+    <div>
+        <h3>Instructions</h3>
+        <hr>
+        <div>Data must include this features {{feat}} </div>
+        <div>Maximum size of nulls equal 30% </div>
+    </div>
+
 
     <div class="d-flex justify-content-around w-100 " style="margin-top: 100px;">
 
@@ -91,5 +98,13 @@
     $("input").addClass("form-control")
     $("textarea").addClass("form-control")
 </script>
+<script type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+    window.onload = noBack;
+    window.onpageshow = function(evt) { if (evt.persisted) noBack(); }
+    window.onunload = function() { void(0); }
+</script>
+
 </html>
 

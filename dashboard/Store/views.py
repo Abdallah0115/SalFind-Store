@@ -5,13 +5,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.db.models.functions import Round
 from django.core.mail import send_mail
 from django.db.models import Avg ,Q
 from django.utils import timezone
 from django.conf import settings
 import plotly.graph_objs as go
+from django.views import View
 import plotly.offline as opy
 import joblib as job
+import stripe as sp
 import pandas as pd
 import numpy as np
 import datetime
@@ -19,7 +22,7 @@ import random
 import string
 import os
 
-# Create your views here.
+sp.api_key = settings.STRIPE_TEST_SECRET_KEY
 
 def Welcome(req):
 
@@ -60,10 +63,12 @@ def Emailenter(req):
 
             va = searchForm(req.POST)
 
-            if(va.is_valid()):
+            use = User.objects.filter(email = req.POST.get("Custmail"))
+
+            if(va.is_valid() and not use):
                 code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
                 hashCode = make_password(code)
-                subject = 'SaleFind store Coupone !'
+                subject = 'SaleFind store !'
                 message = f"we gona check that it's yor email the verification code is {code}"
                 sender = 'SalFind@gmail.com'
                 recipient_list = [req.POST.get("Custmail")]
@@ -74,12 +79,15 @@ def Emailenter(req):
 
             else:
 
-                return render(req ,"emailValid.html" ,{"Error":"NOT VALID !"})
+                va = searchForm()
+
+                return render(req ,"emailValid.html" ,{"form":va,"Error":"NOT VALID !"})
 
     else:
-        return render(req ,"emailValid.html")
-    
-    return render(req ,"emailValid.html")
+        va = searchForm()
+        return render(req ,"emailValid.html",{"form":va})
+    va = searchForm()
+    return render(req ,"emailValid.html",{"form":va})
 
 def validation(req ):
     if(req.method == "POST"):
@@ -100,11 +108,16 @@ def Sign(req):
 
         form = CustForm(req.POST , req.FILES)
 
-        if(form.is_valid()):
+        use = Cust.objects.filter(ssn = req.POST.get("ssn"))
 
-            form.save()
+        if(use):
+            return render(req,'sign.html',{'form':form ,"ssnEr": "SSN found used !","email":req.session.get("username")})
+        else:
+            if(form.is_valid()):
 
-            return redirect('/SalFind/login')
+                form.save()
+
+                return redirect('/SalFind/login')
 
     else:
 
@@ -119,6 +132,8 @@ def Market(req,id):
 
     use = get_object_or_404(Cust,email= req.user.username)
 
+    car = len(req.session.get("cart")) if req.session.get("cart") else 0
+
     if(req.method == "POST"):
 
             query = req.POST.get('search')
@@ -129,28 +144,203 @@ def Market(req,id):
                                                 Q(sku__icontains=query) |
                                                 Q(Category__name__icontains=query),
                                                 is_Active=True
-                                                ).annotate(average_rating=Avg('itemrate__rate'))
+                                                ).annotate(average_rating=Round(Avg('itemrate__rate'), 1))
             else:
 
                 items = Item.objects.all()
 
-            return render(req, 'Market.html', {'items': items[:20],'user':use})
+            return render(req, 'Market.html', {'items': items[:20],'user':use ,'cart':car})
 
     else:
 
         top_items = (ItemRate.objects
             .values('item__sku', 'item__price', 'item__Category','item__discAv','item__image')
-            .annotate(avg_rate=Avg('rate'))
+            .annotate(avg_rate=Round(Avg('rate'),1))
             .order_by('avg_rate')[:100])
 
         start = id * 20 
         end = start + 20
 
-        return render(req ,'Market.html' ,{'items' : top_items[start:end] ,'user':use})
+        return render(req ,'Market.html' ,{'items' : top_items[start:end] ,'user':use ,'cart':car})
+
+@login_required
+def Cart(req):
+
+    userN = Cust.objects.get(username = req.user.username)
+
+    if(req.method =="POST"):
+
+        bola = False
+        salSku = []
+        orders = req.session.get("cart")
+
+        if( not orders):
+            return render(req, "cart.html" )
+        tatalSum = 0
+
+        totOrders = []
+
+        counter = 0
+
+        for order in orders:
+
+            ite = Item.objects.get(sku = order["sku"])
+
+            total = ite.price * int(order["qt"])
+
+            newTotal = total
+
+            if(discV(ite.Category, req.POST.get("payM"), total, userN) or ite.discAv):
+
+                group_enc = cluster(ite.Category, req.POST.get("payM"), total , userN)
+
+                newTotal = desAmount(total, order["qt"], group_enc)
+
+                bola = True
+
+                salSku.append(order["sku"])
+
+            if(req.POST.get("cop")):
+
+                    coupon_exists = Coupon.objects.filter(code= req.POST.get("cop")).exists()
+
+                    if coupon_exists:
+                        cop = Coupon.objects.get(code = req.POST.get("cop"))
+
+                        if(cop.is_active and cop.valid_to > timezone.now().date()):
+                            newTotal = (1 - float(cop.discount_value)) * newTotal
+                            
+                            req.session["cop"] = req.POST.get("cop")
+                    else:
+
+                        return  render(req, "payMethod.html" ,{"messege":"Not valid copone enter without it or enter another one"})
+                    
+            ord1 = {"sku":order["sku"],
+                    "category":ite.Category.name,
+                    "price":float(ite.price),
+                    "qt":order["qt"],
+                    "total":round(float(total),1),
+                    "newT":round(float(newTotal),1),
+                    "sale": round( float(total) - float(newTotal), 1),
+                    "index":int(counter)}
+            
+            
+
+            tatalSum += float(ord1["newT"])
+
+            totOrders.append(ord1)
+
+            counter += 1
+
+            pm = req.POST.get("payM")
+
+            req.session["payM"] = pm
+
+        req.session["totalMoney"] = round(float(tatalSum),2)
+
+        req.session["paymentDone"] = totOrders
+
+        return render(req, "cart.html" ,{"itemss":totOrders,
+                                            "bola":bola,
+                                            "is_code":req.POST.get("payM") == "cod",
+                                            "saleOrd":salSku,
+                                            "tot":round(tatalSum,2) ,
+                                            "payM":pm})
+
+    else:
+        return render(req, "payMethod.html" )
+
+class CreateCheckoutSessionView(View):
+    def post(self, request, *args, **kwargs):
+        YOUR_DOMAIN = "http://localhost:8000/"
+        checkout_session = sp.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[
+                {
+                    'price_data': {
+                        'currency': 'usd',
+                        'product_data': {
+                            'name': 'Total Orders',
+                        },
+                        'unit_amount': int(float(request.session.get("totalMoney")) * 100),
+                    },
+                    'quantity': 1,
+                },
+            ],
+            mode='payment',
+            success_url=YOUR_DOMAIN + '/SalFind/Market/pay/success',
+            cancel_url=YOUR_DOMAIN + '/SalFind/Market/pay/fail',
+        )
+        return redirect(checkout_session.url, code=303)
+
+@login_required
+def success_order(req):
+
+    try:
+        userN = Cust.objects.get(email = req.user.username)
+
+        pay_method = req.session.get("payM")
+
+        status1 = "cod" if req.session.get("payM") == "cod" else "complete"
+
+        orders = req.session.get("paymentDone")
+
+        for ord1 in orders:
+            order.objects.create(user =userN,
+                        status = status1,
+                        value = ord1["total"],
+                        discount_amount = ord1["sale"],
+                        total = ord1["newT"],
+                        payment_method = pay_method,
+                        qty_ordered = ord1["qt"],
+                        item = Item.objects.get(sku = ord1["sku"]),
+                        discout_percentage = ord1["sale"] / ord1["newT"]
+                        )
+
+        if(req.session.get("cop")):
+            cop = Coupon.objects.filter(code= req.session.get("cop")).exists()
+            CouponUser.objects.create(
+                                                        user_id = userN,
+
+                                                        Coupon_id = cop
+                                                    )
+            req.session["cop"] = ""
+
+        vario = req.session.get("totalMoney")
+        subject = 'SaleFind store Coupone !'
+        message = f"we gona inform you that you payed {vario} "
+        sender = 'SalFind@gmail.com'
+        recipient_list = [req.user.username]
+        send_mail(subject, message, sender, recipient_list,fail_silently=False)
+
+        req.session["paymentDone"] = []
+
+        req.session["totalMoney"] = 0
+
+        req.session["cart"] = []
+
+        return render(req,'succes.html')
+
+    except:
+        return redirect("/SalFind/Market/pay/fail")
+
+@login_required
+def fail_order(req):
+    return render(req,'failed.html')
+
+@login_required
+def remCart(req,index):
+    liso =  req.session.get("cart")
+
+    liso.pop(index)
+
+    req.session["cart"] = liso
+
+    return redirect("/SalFind/Market/Cart")
 
 def calculate_average_rate(item_id):
     
-    average_rate = ItemRate.objects.filter(item_id=item_id).aggregate(avg_rate=Avg('rate'))
+    average_rate = ItemRate.objects.filter(item_id=item_id).aggregate(avg_rate=Round(Avg('rate'),1))
     return average_rate['avg_rate'] if average_rate['avg_rate'] is not None else 0
 
 def gen_encode(x):
@@ -304,82 +494,25 @@ def item(req,sk):
 
         if(req.method == "POST"):
 
-            mess = None
-
-            userN = Cust.objects.get(username = req.user.username)
-
             if(req.POST.get("rate")):
                 temp = ItemRate.objects.create(cust = use , item = It , rate = req.POST.get("rate"))
 
-            if(req.POST.get("quantity") and req.POST.get("payM")):
+            order_name = sk
 
-                rate = calculate_average_rate(sk)
+            order_qt = req.POST.get("quantity")
 
-                qt = req.POST.get("quantity")
+            order = {"sku" : order_name ,"qt" : order_qt}
 
-                total = It.price * int(qt)
+            if(not req.session.get("cart")):
+                liso = []
+                liso.append(order)
+                req.session["cart"] = liso
+            else:
+                liso = req.session.get("cart")
+                liso.append(order)
+                req.session["cart"] = liso
 
-                newTotal = total
-
-                if(discV(It.Category, req.POST.get("payM"), total , userN) or It.discAv):
-
-
-                    group_enc = cluster(It.Category, req.POST.get("payM"), total , userN)
-                    if(group_enc == 0):
-                        file_path = os.path.join(settings.CSV_DATA_DIR, 'modRegOne.pkl')
-
-                        path = os.path.join(file_path)
-
-                        model = job.load(path)
-
-                        data = np.array([total , qt]).reshape(1, -1)
-
-                        newTotal = model.predict(data)[0]
-
-                    elif(group_enc == 1):
-                        file_path = os.path.join(settings.CSV_DATA_DIR, 'modRegTwo.pkl')
-
-                        path = os.path.join(file_path)
-
-                        model = job.load(path)
-
-                        data = np.array([total , qt]).reshape(1, -1)
-
-                        newTotal = model.predict(data)[0]
-
-                    if(newTotal > total):
-                        newTotal = .94 * float( total)
-
-                    newTotal = np.floor(newTotal)
-
-                if(req.POST.get("cop")):
-
-                    coupon_exists = Coupon.objects.filter(code= req.POST.get("cop")).exists()
-
-                    if coupon_exists:
-                        cop = Coupon.objects.get(code = req.POST.get("cop"))
-
-                        if(cop.is_active and cop.valid_to > timezone.now().date()):
-                            newTotal = (1 - float(cop.discount_value)) * newTotal
-
-                        else:
-
-                            mess = "not valid coupon !"
-
-                return render(req,
-                                'offer.html',
-                                {'It' : It ,
-                                    'rate' : rate,
-                                    'newT' : newTotal,
-                                    'oldT' : total, 
-                                    'payM': req.POST.get("payM"),
-                                    'qt' : req.POST.get("quantity"),
-                                    'code':req.POST.get("cop"),
-                                    'messege':mess,
-                                    'user':use,
-                                    'rate':rate
-                                }
-                            )
+            return redirect( "/SalFind/Market/0" )
 
         else:
 
@@ -391,104 +524,28 @@ def item(req,sk):
 
                 return render(req,'item.html',{'It' : It , 'user':use})
 
-@login_required
-def offer(req , item):
-    
-    try:
+def desAmount(value,qt,group):
+    if(group == 0):
+        file_path = os.path.join(settings.CSV_DATA_DIR, 'modRegOne.pkl')
 
-        if(req.method == "POST"):
+        path = os.path.join(file_path)
 
-            It = Item.objects.get(sku=item)
+        model = job.load(path)
 
-            if(It is not None):
+        data = np.array([value , qt]).reshape(1, -1)
 
-                userN = Cust.objects.get(username = req.user.username)
+        return model.predict(data)[0]
 
-                status1 = "complete"
+    else:
+        file_path = os.path.join(settings.CSV_DATA_DIR, 'modRegTwo.pkl')
 
-                qt = req.POST.get("quantity")
+        path = os.path.join(file_path)
 
-                value1 = It.price * int(qt)
+        model = job.load(path)
 
-                newTotal = value1
+        data = np.array([value , qt]).reshape(1, -1)
 
-                discount_per = 0
-
-                if(discV(It.Category, req.POST.get("payMethod"), value1 , userN) or It.discAv):
-
-                    group_enc = cluster(It.Category, req.POST.get("payMethod"), value1 , userN) 
-
-                    if(group_enc == 0):
-                        file_path = os.path.join(settings.CSV_DATA_DIR, 'modRegOne.pkl')
-
-                        path = os.path.join(file_path)
-
-                        model = job.load(path)
-
-                        data = np.array([value1 , qt]).reshape(1, -1)
-
-                        newTotal = model.predict(data)[0]
-
-                    elif(group_enc == 1):
-                        file_path = os.path.join(settings.CSV_DATA_DIR, 'modRegTwo.pkl')
-
-                        path = os.path.join(file_path)
-
-                        model = job.load(path)
-
-                        data = np.array([value1 , qt]).reshape(1, -1)
-
-                        newTotal = model.predict(data)[0]
-
-                    newTotal = np.floor(newTotal)
-
-                if(req.POST.get("cop")):
-
-                    coupon_exists = Coupon.objects.filter(code= req.POST.get("cop")).exists()
-
-                    if coupon_exists:
-                        cop = Coupon.objects.get(code = req.POST.get("cop"))
-
-                        if(cop.is_active and cop.valid_to > timezone.now().date()):
-                            newTotal = (1 - float(cop.discount_value)) * newTotal
-
-                            CouponUser.objects.create(
-                                                        user_id = userN,
-
-                                                        Coupon_id = cop
-                                                    )
-
-                discount_am =  float(value1) - float(newTotal)
-
-                discount_per = discount_am / float(value1)
-
-                if (req.POST.get("payMethod") == "cod"):
-                    status1 = "cod"
-
-                order.objects.create(user =userN,
-                                        status = status1,
-                                        value = value1,
-                                        discount_amount = discount_am,
-                                        total = newTotal,
-                                        payment_method = req.POST.get("payMethod"),
-                                        qty_ordered = qt,
-                                        item = It,
-                                        discout_percentage = discount_per
-                                        )
-
-                return render(req,'succes.html')
-
-            else:
-
-                return render(req,'failed.html')
-
-        else:
-
-            return render(req,'failed.html')
-
-    except:
-
-        return render(req,'failed.html')
+        return model.predict(data)[0]
 
 def userGraph(user):
     orders = order.objects.exclude(status="canceled")

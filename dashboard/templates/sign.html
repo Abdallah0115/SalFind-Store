@@ -159,17 +159,19 @@
             </div>
             {%endif%}
 
-            <div class="d-flex flex-ro m-2">
+            <div class="m-2">
                 {{form.image}}
             </div>
 
             <div class="m-2">
-                {%if form.errors%}
+                {%if form.errors or ssnEr%}
                 <div class="alert alert-danger" role="alert">
                     {{form.errors}}
+                    <br>
+                    {{ssnEr}}
                 </div>
                 {%endif%}
-            </div>
+            </div
 
             <div class=" text-center">
                 <button type="submit" class="btn btn-primary  m-3">
@@ -181,6 +183,8 @@
                     Edit
                     {%endif%}
                 </button>
+
+                <a class="btn btn-primary m-2" href="/SalFind">Cancel</a>
             </div> 
 
         </form>
@@ -211,6 +215,20 @@
     
     $("#id_username").addClass("d-none")
     $("#id_email").addClass("d-none")
+
+    $("#image-clear_id").removeClass("form-control")
+
+    $("#image-clear_id").addClass("d-block")
+
+
+</script>
+
+<script type="text/javascript">
+    window.history.forward();
+    function noBack() { window.history.forward(); }
+    window.onload = noBack;
+    window.onpageshow = function(evt) { if (evt.persisted) noBack(); }
+    window.onunload = function() { void(0); }
 </script>
 
 </html>
